@@ -1,36 +1,104 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed, ref, watch, nextTick } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/store'
+import debounce from '@/utils/debounce'
+import { getArticleList } from '@/service/article'
 const router = useRouter()
+const route = useRoute()
 const store = useStore()
+
+//存储导航栏的内容信息
 const list = ref([
-  { label: '搜索', url: '', icon: 'search' },
+  { label: '搜索', url: '/search', icon: 'search' },
   { label: '主页', url: '/main', icon: 'house' },
   { label: '分类', url: '/category', icon: 'folder' },
   { label: '留言板', url: '', icon: 'mug' },
   { label: '关于', url: '/about', icon: '' }
 ])
-const table = computed(() => store.state.showMobileDrawer)
-const to = (url: any) => {
+//搜索框绑定的内容
+const input = ref()
+//搜索到的文章列表
+const articleList = ref([])
+//是否显示抽屉
+const showMobileDrawer = ref(false)
+//是否显示输入框
+const showInput = ref(false)
+//导航菜单点击
+const navClick = (url: any) => {
+  //如果点击的是搜索按钮
+  if (url === '/search') {
+    //是否显示的布尔值取反
+    showInput.value = !showInput.value
+    //如果是不显示，就清除搜索到的内容列表
+    if (showInput.value === false) {
+      articleList.value = []
+      input.value = ''
+    }
+    return
+  }
+  //如果是点击的主页，就额外commit一下状态
   if (url === '/main') store.commit('changeCurrentCategory', '所有')
   router.push(url)
-  store.commit('changeShowMobileDrawer', false)
 }
-const showDrawer = (e) => {
-  store.commit('changeShowMobileDrawer', true)
-  e.stopPropagation()
-}
+//防抖函数
+const debounce_getArticle = debounce(getArticleList)
+//监听input输入框的变化
+watch(
+  () => input.value,
+  async () => {
+    //如果变化且有值，就发送请求
+    input.value
+      ? debounce_getArticle({ title: input.value }).then((res) => {
+          //找到了就修改list，否则就置空
+          if (res.status) {
+            articleList.value = res.data.list
+          } else {
+            articleList.value = []
+          }
+        })
+      : (articleList.value = [])
+  }
+)
+
+//监听路由的变化，路由变的时候隐藏输入框
+watch(
+  () => route.path,
+  () => {
+    showInput.value = !showInput.value
+    if (showInput.value === false) {
+      articleList.value = []
+      input.value = ''
+    }
+  }
+)
 </script>
 
 <template>
   <nav class="nav" style="z-index: 10">
     <div class="title">勾勾的小站</div>
     <div class="nav-item-list">
-      <div class="nav-item-pc">
+      <div class="nav-item-pc" style="position: relative">
+        <transition name="wjj">
+          <el-input
+            v-if="showInput"
+            v-model="input"
+            placeholder="Please input"
+            clearable
+          />
+        </transition>
+        <el-menu class="el-menu-vertical-demo" router="true">
+          <el-menu-item
+            v-for="item in articleList"
+            :index="`/article/${item._id}`"
+            :key="item._id"
+          >
+            <span>{{ item.title }}</span>
+          </el-menu-item>
+        </el-menu>
         <div
           class="nav-item"
-          @click="to(item.url)"
+          @click="navClick(item.url)"
           v-for="item in list"
           :key="item.label"
         >
@@ -44,16 +112,14 @@ const showDrawer = (e) => {
       </div>
       <div class="nav-item-mobile">
         <div class="nav-item">
-          <el-icon size="30px" @click="showDrawer"><fold /></el-icon>
-          <el-drawer
-            :model-value="table"
-            @update:model-value="$store.commit('changeShowMobileDrawer', false)"
-            size="50%"
-          >
+          <el-icon size="30px" @click="showMobileDrawer = !showMobileDrawer"
+            ><fold
+          /></el-icon>
+          <el-drawer v-model="showMobileDrawer" size="50%">
             <el-menu class="el-menu-vertical-demo">
               <el-menu-item
                 :index="index + ''"
-                @click="to(item.url)"
+                @click="navClick(item.url)"
                 v-for="(item, index) in list"
                 :key="item.label"
               >
@@ -84,6 +150,19 @@ const showDrawer = (e) => {
   }
   .nav-item-pc {
     display: flex;
+    align-items: center;
+    position: relative;
+    .el-menu {
+      position: absolute;
+      top: 100%;
+      width: 200px;
+      .el-menu-item {
+        height: 30px;
+      }
+    }
+    .el-input {
+      width: 200px;
+    }
   }
   .nav-item {
     &:hover {
@@ -138,8 +217,17 @@ const showDrawer = (e) => {
       }
       span {
         margin-left: 0.25rem;
+        white-space: nowrap;
       }
     }
   }
+}
+.wjj-enter-from,
+.wjj-leave-to {
+  opacity: 0;
+}
+.wjj-enter-active,
+.wjj-leave-active {
+  transition: all 0.5s;
 }
 </style>

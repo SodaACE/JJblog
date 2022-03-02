@@ -4,6 +4,7 @@ import { ICategoryType } from '@/store/category/types'
 export interface IRootType {
   currentCategory: string
   showMobileDrawer: boolean
+  isLoading: boolean
 }
 
 interface IRootWithModule {

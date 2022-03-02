@@ -1,24 +1,27 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { getArticleList, addArticleCount } from '@/service/article'
 import lazyLoad from '@/utils/lazy-load'
 import markdown from '@/components/markdown/src/markdown.vue'
-
-const route = useRoute()
-const id = route.params.id
 const article = ref({})
 const count = ref(0)
 const time = ref(0)
 const path = ref({})
-getArticleList({ _id: id }).then((res) => {
-  article.value = res.data!.list[0]
-  path.value = {
-    categoryName: res.data!.list[0].categoryName,
-    title: res.data!.list[0].title
-  }
+const route = useRoute()
+watchEffect(() => {
+  let id = route.params.id
+  getArticleList({ _id: id }).then((res) => {
+    article.value = res.data!.list[0]
+    console.log(encodeURI(res.data!.list[0].title))
+    path.value = {
+      categoryName: res.data!.list[0].categoryName,
+      title: encodeURI(res.data!.list[0].title)
+    }
+  })
+  addArticleCount({ _id: id })
 })
-addArticleCount({ _id: id })
+
 const loaded = (length: any) => {
   count.value = Math.floor(length / 4)
   time.value = Math.floor(count.value / 360)

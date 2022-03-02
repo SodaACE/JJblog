@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 // import loadingBox from '@/components/loadingBox'
 import navHeader from '@/components/nav-header'
+import { ElMessage } from 'element-plus'
 </script>
 <template>
   <div class="app">

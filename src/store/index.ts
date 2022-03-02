@@ -7,7 +7,8 @@ const store = createStore<IRootType>({
   state() {
     return {
       currentCategory: '所有',
-      showMobileDrawer: false
+      showMobileDrawer: false,
+      isLoading: false
     }
   },
   mutations: {

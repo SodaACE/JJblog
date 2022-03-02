@@ -1,13 +1,15 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-interface interceptor<T = AxiosResponse> {
+interface interceptor {
   requestOnFulfilled?: (config: AxiosRequestConfig) => AxiosRequestConfig
   requestOnRejected?: (err: any) => any
-  responseOnFulfilled?: (config: T) => T
+  responseOnFulfilled?: (config: AxiosResponse) => AxiosResponse
   responseOnRejected?: (err: any) => any
 }
-interface wjjRequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
-  interceptor?: interceptor<T>
+
+//实例也可以传入自定义的interceptor拦截器，这个对象的类型是自定义的interceptor类型
+interface wjjRequestConfig extends AxiosRequestConfig {
+  interceptor?: interceptor
   showLoading?: boolean
 }
 

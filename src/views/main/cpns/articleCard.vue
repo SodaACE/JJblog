@@ -11,7 +11,9 @@ const itemIndex = computed(() => props.index + 1)
 </script>
 <template>
   <div class="article">
-    <img
+    <el-image
+      lazy
+      fit="cover"
       class="image"
       :src="'https://tenapi.cn/acg?time=' + Math.floor(Math.random() * 100)"
     />

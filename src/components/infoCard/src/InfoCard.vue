@@ -23,7 +23,7 @@ const list = computed(() => [
   }
 ])
 const router = useRouter()
-const to = (url) => {
+const to = (url: string) => {
   if (url === '/main') {
     route.path === '/main'
       ? store.dispatch('article/getDataList')

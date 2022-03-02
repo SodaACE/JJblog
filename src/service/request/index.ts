@@ -1,7 +1,8 @@
 import axios from 'axios'
-// import { ElLoading } from 'element-plus'
+import { useStore } from '@/store'
 import { AxiosInstance } from 'axios'
 import { wjjRequestConfig, interceptor } from '@/service/request/type'
+const store = useStore()
 export class wjjRequest {
   //保存axios实例
   instance: AxiosInstance
@@ -25,7 +26,7 @@ export class wjjRequest {
   }
 
   //传入泛型，用户可以指定返回的Promise的值的类型
-  request<T = any>(config: wjjRequestConfig<T>): Promise<T> {
+  request<T = any>(config: wjjRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
       //request指定第二个泛型为传入的泛型，可以指定request返回的Promise的值的类型
       this.instance
@@ -39,19 +40,19 @@ export class wjjRequest {
     })
   }
 
-  get<T = any>(config: wjjRequestConfig<T>): Promise<T> {
+  get<T = any>(config: wjjRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' })
   }
 
-  post<T = any>(config: wjjRequestConfig<T>): Promise<T> {
+  post<T = any>(config: wjjRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
 
-  delete<T = any>(config: wjjRequestConfig<T>): Promise<T> {
+  delete<T = any>(config: wjjRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
 
-  patch<T = any>(config: wjjRequestConfig<T>): Promise<T> {
+  patch<T = any>(config: wjjRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })
   }
 }

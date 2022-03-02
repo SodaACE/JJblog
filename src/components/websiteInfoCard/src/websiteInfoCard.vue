@@ -9,7 +9,7 @@ const list = computed(() => [
   },
   {
     label: '文章总访问量',
-    content: store.state.article.allCount + '篇'
+    content: '你猜猜~'
   },
   {
     label: '开发周期',
