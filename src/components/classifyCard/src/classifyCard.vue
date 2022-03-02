@@ -6,7 +6,10 @@ defineProps({
 })
 // eslint-disable-next-line no-undef
 const emits = defineEmits(['categoryClick'])
+
 const store = useStore()
+
+//点击分类的时候向父组件发射事件，并且修改store中的状态
 const itemClick = (category) => {
   emits('categoryClick', category)
   store.commit('changeCurrentCategory', category.categoryName)
@@ -18,7 +21,7 @@ const itemClick = (category) => {
       <el-icon :size="20"><folder-opened /></el-icon>
       <h4>所有分类</h4>
     </div>
-    <div class="menu">
+    <div class="menu-content">
       <el-menu class="el-menu-vertical-demo">
         <el-menu-item
           v-for="(category, index) in list"
@@ -49,9 +52,7 @@ const itemClick = (category) => {
     width: 300px;
   }
 }
-.el-menu-item {
-  height: 36px;
-}
+
 .classify-card {
   background-color: white;
   border-radius: 0.4rem;
@@ -65,12 +66,20 @@ const itemClick = (category) => {
     h4 {
       margin: 15px 0;
       margin-left: 5px;
+      font-weight: 500;
     }
   }
-  .menu {
-    padding: 20px 0;
+  //为menu设置内边距
+  .menu-content {
+    padding: 20px 10px;
+
+    //调整menu组件的样式
     .el-menu {
       border: none;
+
+      .el-menu-item {
+        height: 36px;
+      }
     }
   }
 }

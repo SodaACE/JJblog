@@ -4,6 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ArticleCard: typeof import('./src/components/articleCard/src/articleCard.vue')['default']
     ClassifyCard: typeof import('./src/components/classifyCard/src/classifyCard.vue')['default']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']

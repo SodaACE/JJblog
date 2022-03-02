@@ -1,20 +1,22 @@
 <script lang="ts" setup>
-import { useRouter } from 'vue-router'
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/store'
 import { computed } from 'vue'
+
 const store = useStore()
 const route = useRoute()
+const router = useRouter()
+//获取信息
 const list = computed(() => [
   {
     label: '文章',
     url: '/main',
-    count: store.state.article.allCount
+    count: store.state.article.allCount ?? 0
   },
   {
     label: '分类',
     url: 'category',
-    count: store.state.category.allCount
+    count: store.state.category.allCount ?? 0
   },
   {
     label: '年龄',
@@ -22,15 +24,19 @@ const list = computed(() => [
     count: 20
   }
 ])
-const router = useRouter()
+
 const to = (url: string) => {
+  //如果要跳转到main路由
   if (url === '/main') {
+    //如果当前就是main路由，就重新获取article，否则就前往
     route.path === '/main'
       ? store.dispatch('article/getDataList')
       : router.push(url)
+    //修改store中的状态为所有
     store.commit('changeCurrentCategory', '所有')
   } else router.push(url)
 }
+//发送请求获取文章列表和标签列表
 store.dispatch('category/getDataList')
 store.dispatch('article/getDataList')
 </script>

@@ -1,8 +1,6 @@
 import axios from 'axios'
-import { useStore } from '@/store'
 import { AxiosInstance } from 'axios'
 import { wjjRequestConfig, interceptor } from '@/service/request/type'
-const store = useStore()
 export class wjjRequest {
   //保存axios实例
   instance: AxiosInstance

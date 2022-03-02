@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import myArticle from './cpns/articleCard.vue'
+import myArticle from '../../components/articleCard'
 import myInfoCard from '../../components/infoCard/src/InfoCard.vue'
 import classifyCard from '@/components/classifyCard'
 import websiteInfoCard from '@/components/websiteInfoCard'

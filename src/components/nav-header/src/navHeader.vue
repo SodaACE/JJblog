@@ -26,6 +26,8 @@ const showMobileDrawer = ref(false)
 const showInput = ref(false)
 //导航菜单点击
 const navClick = (url: any) => {
+  //点击导航栏的时候隐藏抽屉
+  showMobileDrawer.value = false
   //如果点击的是搜索按钮
   if (url === '/search') {
     //是否显示的布尔值取反
@@ -65,11 +67,9 @@ watch(
 watch(
   () => route.path,
   () => {
-    showInput.value = !showInput.value
-    if (showInput.value === false) {
-      articleList.value = []
-      input.value = ''
-    }
+    showInput.value = false
+    articleList.value = []
+    input.value = ''
   }
 )
 </script>
@@ -77,8 +77,9 @@ watch(
 <template>
   <nav class="nav" style="z-index: 10">
     <div class="title">勾勾的小站</div>
-    <div class="nav-item-list">
-      <div class="nav-item-pc" style="position: relative">
+    <div class="nav-content">
+      <!--电脑端显示的nav有搜索框-->
+      <div class="nav-pc" style="position: relative">
         <transition name="wjj">
           <el-input
             v-if="showInput"
@@ -110,7 +111,8 @@ watch(
           <span>{{ item.label }}</span>
         </div>
       </div>
-      <div class="nav-item-mobile">
+      <!--手机端显示的nav没有搜索框-->
+      <div class="nav-mobile">
         <div class="nav-item">
           <el-icon size="30px" @click="showMobileDrawer = !showMobileDrawer"
             ><fold
@@ -140,15 +142,15 @@ watch(
 
 <style lang="less" scoped>
 @media screen and (max-width: 600px) {
-  .nav-item-pc {
+  .nav-pc {
     display: none;
   }
 }
 @media screen and (min-width: 601px) {
-  .nav-item-mobile {
+  .nav-mobile {
     display: none;
   }
-  .nav-item-pc {
+  .nav-pc {
     display: flex;
     align-items: center;
     position: relative;
@@ -164,11 +166,6 @@ watch(
       width: 200px;
     }
   }
-  .nav-item {
-    &:hover {
-      color: white !important;
-    }
-  }
 }
 .nav {
   width: 100%;
@@ -176,19 +173,13 @@ watch(
   align-items: center;
   justify-content: space-between;
   height: 4rem;
-  .show {
-    transform: translateX(-100%);
+
+  //设置抽屉的宽度
+  ::v-deep .el-overlay {
+    width: 100vw;
   }
-  .drawer {
-    width: 50vw;
-    height: 100vh;
-    position: absolute;
-    left: 62px;
-    top: -16px;
-    background: url('../../../assets/bg/aboutBg.png');
-    background-color: white;
-    transition: all 0.5s;
-  }
+
+  //设置标题样式
   .title {
     padding-left: 1rem;
     color: white;
@@ -198,7 +189,9 @@ watch(
     font-weight: bold;
     transition: all 0.5s;
   }
-  .nav-item-list {
+
+  //导航容器样式
+  .nav-content {
     padding-right: 1rem;
     display: flex;
     align-items: center;
@@ -212,9 +205,18 @@ watch(
       position: relative;
       color: silver;
       transition: color 0.4s ease;
+
+      //鼠标移入样式
+      &:hover {
+        color: white !important;
+      }
+
+      //取消menu的右边框
       .el-menu {
         border: none;
       }
+
+      //设置每个item的间距
       span {
         margin-left: 0.25rem;
         white-space: nowrap;
@@ -222,6 +224,8 @@ watch(
     }
   }
 }
+
+//设置transition的样式
 .wjj-enter-from,
 .wjj-leave-to {
   opacity: 0;

@@ -2,7 +2,6 @@
 import { useRoute } from 'vue-router'
 import { ref, watchEffect } from 'vue'
 import { getArticleList, addArticleCount } from '@/service/article'
-import lazyLoad from '@/utils/lazy-load'
 import markdown from '@/components/markdown/src/markdown.vue'
 const article = ref({})
 const count = ref(0)
@@ -13,10 +12,9 @@ watchEffect(() => {
   let id = route.params.id
   getArticleList({ _id: id }).then((res) => {
     article.value = res.data!.list[0]
-    console.log(encodeURI(res.data!.list[0].title))
     path.value = {
       categoryName: res.data!.list[0].categoryName,
-      title: encodeURI(res.data!.list[0].title)
+      title: res.data!.list[0].title
     }
   })
   addArticleCount({ _id: id })

@@ -5,7 +5,7 @@ const store = useStore()
 const list = computed(() => [
   {
     label: '文章数目',
-    content: store.state.article.allCount + '篇'
+    content: store.state.article.allCount ?? 0 + '篇'
   },
   {
     label: '文章总访问量',
@@ -29,14 +29,18 @@ const list = computed(() => [
 <template>
   <div class="website-info-card clearfix">
     <div class="title">
-      <el-icon :size="20"><house /></el-icon>
-      <h4>网站信息</h4>
+      <slot name="title">
+        <el-icon :size="20"><house /></el-icon>
+        <h4>网站信息</h4>
+      </slot>
     </div>
     <div class="website-info">
-      <div class="item" v-for="item in list" :key="item.label">
-        <div class="label">{{ item.label }}:</div>
-        <div class="content">{{ item.content }}</div>
-      </div>
+      <slot name="content">
+        <div class="item" v-for="item in list" :key="item.label">
+          <div class="label">{{ item.label }}:</div>
+          <div class="content">{{ item.content }}</div>
+        </div>
+      </slot>
     </div>
   </div>
 </template>
@@ -69,13 +73,15 @@ const list = computed(() => [
     h4 {
       margin: 15px 0;
       margin-left: 5px;
+      font-weight: 500;
     }
   }
   .item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 25px;
+    padding: 8px 25px;
+    font-size: 14px;
     &:last-of-type {
       margin-bottom: 10px;
     }

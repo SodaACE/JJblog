@@ -1,7 +1,6 @@
 //统一出口
 import { wjjRequest } from '@/service/request'
 //封装的localStorage
-import cache from '@/utils/cache'
 
 //创建axios实例
 const request_util = new wjjRequest({

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 const arr = ref([
   {
@@ -34,17 +33,13 @@ const arr = ref([
     color: '#e6ceac'
   }
 ])
-const router = useRouter()
-const back = () => {
-  router.push('/')
-}
 </script>
 <template>
   <div class="about">
     <div class="info">
       <h3>个人简介</h3>
       <div class="content">
-        <img src="../../assets/icon/avatar.jpg" @click="back" alt="" />
+        <img src="../../assets/icon/avatar.jpg" alt="" />
         <div style="padding: 0 40px">
           <p class="name">wjj（勾勾）</p>
           <p class="description">

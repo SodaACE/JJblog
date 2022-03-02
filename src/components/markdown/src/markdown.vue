@@ -1,27 +1,10 @@
 <script lang="ts">
 import { defineComponent, nextTick, ref, watchEffect } from 'vue'
 import { getArticleMd } from '@/service/article'
+//懒加载函数
 import lazyLoad from '@/utils/lazy-load'
-import MarkdownIt from 'markdown-it'
-import hljs from 'highlight.js'
-const md = new MarkdownIt({
-  highlight: function (str: any, lang: any) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return (
-          '<pre class="hljs"><code>' +
-          hljs.highlight(lang, str, true).value +
-          '</code></pre>'
-        )
-      } catch (__) {
-        console.log(__)
-      }
-    }
-    return (
-      '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>'
-    )
-  }
-})
+import useMarkdownIt from '@/components/markdown/useMarkdownIt'
+//获取md解析器，用于将md文件转html代码
 
 export default defineComponent({
   name: 'App',
@@ -39,33 +22,23 @@ export default defineComponent({
   setup(props, { emit }) {
     const content = ref()
     watchEffect(() => {
+      //如果传入了categoryName和title的话，就去发送请求获取md文件
       if (props.categoryName && props.title)
         getArticleMd({
           categoryName: props.categoryName,
           title: props.title
         }).then((res: any) => {
-          //render函数用于将markdown字符串转html字符串
-          let str = md.render(res)
-          content.value = str
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&quot;/g, '"')
-            .replace(/<p></g, '<')
-            .replace(/><\/p>/g, '>')
-            .replace(/<p>(.)*]\(/g, '<img src="')
-            .replace(/png\)/g, 'png"/>')
-            .replace(
-              /src="/g,
-              `data-src="${process.env.VUE_APP_BASE_URL}/images/${props.categoryName}/`
-            )
+          //使用hook，传入md文件和标签名，获取转换后的html字符串
+          content.value = useMarkdownIt(res, props.categoryName)
+          //在dom挂载完成后获取所有img元素进行懒加载
           nextTick(() => {
             const images = document.querySelectorAll('img')
-            images.forEach((item: any) => {
-              item.onclick = () => emit('showImg', item)
-            })
-
+            images.forEach(
+              (item: any) => (item.onclick = () => emit('showImg', item))
+            )
             lazyLoad(images)
           })
+          //发射加载成功事件，并且把md文件大小发送给父组件
           emit('loaded', res.length)
         })
     })
