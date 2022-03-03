@@ -1,4 +1,5 @@
 import { request_util } from '@/service'
+import axios from 'axios'
 //请求到的数据的类型
 interface ArticleType {
   status: boolean
@@ -18,6 +19,16 @@ interface AddCountType {
 //请求文章
 export function getArticleList(data: any) {
   return request_util.post<ArticleType>({
+    url: '/article/getlist',
+    data: data
+  })
+}
+
+//请求文章
+export function getArticleListWithoutShowLoading(data: any) {
+  return axios({
+    baseURL: process.env.VUE_APP_BASE_URL,
+    method: 'post',
     url: '/article/getlist',
     data: data
   })

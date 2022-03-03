@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-const hljs = require('highlight.js')
 import 'normalize.css'
 import './assets/css/index.less'
 import App from './App.vue'

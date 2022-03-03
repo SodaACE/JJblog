@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { computed, ref, watch, nextTick } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/store'
 import debounce from '@/utils/debounce'
-import { getArticleList } from '@/service/article'
+import { getArticleListWithoutShowLoading } from '@/service/article'
 const router = useRouter()
 const route = useRoute()
 const store = useStore()
@@ -44,17 +44,17 @@ const navClick = (url: any) => {
   router.push(url)
 }
 //防抖函数
-const debounce_getArticle = debounce(getArticleList)
+const debounce_getArticle = debounce(getArticleListWithoutShowLoading)
 //监听input输入框的变化
 watch(
   () => input.value,
   async () => {
     //如果变化且有值，就发送请求
     input.value
-      ? debounce_getArticle({ title: input.value }).then((res) => {
+      ? debounce_getArticle({ title: input.value }).then((res: any) => {
           //找到了就修改list，否则就置空
-          if (res.status) {
-            articleList.value = res.data.list
+          if (res.data.status) {
+            articleList.value = res.data.data.list
           } else {
             articleList.value = []
           }

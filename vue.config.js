@@ -7,7 +7,7 @@ module.exports = {
   publicPath: './',
   configureWebpack: {
     externals: {
-      'element-plus': 'ElementPlus',
+      // 'element-plus': 'ElementPlus',
       // axios: 'axios',
       vue: 'Vue',
       // 'vue-router': 'VueRouter'，
@@ -21,8 +21,6 @@ module.exports = {
         resolvers: [ElementPlusResolver()]
       }),
       ElementPlus()
-
-      // new BundleAnalyzerPlugin()
     ]
   }
 }
