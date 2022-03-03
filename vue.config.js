@@ -9,8 +9,9 @@ module.exports = {
     externals: {
       'element-plus': 'ElementPlus',
       // axios: 'axios',
-      vue: 'Vue'
-      // 'vue-router': 'VueRouter'
+      vue: 'Vue',
+      // 'vue-router': 'VueRouter'，
+      highlight: 'highlight'
     },
     plugins: [
       AutoImport({
@@ -20,6 +21,7 @@ module.exports = {
         resolvers: [ElementPlusResolver()]
       }),
       ElementPlus()
+
       // new BundleAnalyzerPlugin()
     ]
   }

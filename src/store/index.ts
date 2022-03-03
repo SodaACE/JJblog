@@ -17,6 +17,9 @@ const store = createStore<IRootType>({
     },
     changeShowMobileDrawer(state, payload) {
       state.showMobileDrawer = payload
+    },
+    changeIsLoading(state, payload) {
+      state.isLoading = payload
     }
   },
   actions: {},

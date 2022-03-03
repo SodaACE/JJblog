@@ -1,22 +1,25 @@
 //统一出口
 import { wjjRequest } from '@/service/request'
 //封装的localStorage
-
+import { ref } from 'vue'
+const isLoading = ref(false)
 //创建axios实例
+let timer: any = null
 const request_util = new wjjRequest({
   baseURL: process.env.VUE_APP_BASE_URL,
   interceptor: {
     requestOnFulfilled(config) {
-      // const token = cache.getCache('token')
-      // if (token) {
-      //   config.headers!.Authorization = `Bearer ${token}`
-      // }
+      isLoading.value = true
       return config
     },
     responseOnFulfilled(res) {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        isLoading.value = false
+      }, 1000)
       return res.data
     }
   },
   timeout: 5000
 })
-export { request_util }
+export { request_util, isLoading }

@@ -114,7 +114,7 @@ const arr = ref([
 .about {
   width: 100%;
   height: 100%;
-  background: url('../../assets/bg/aboutBg.png');
+  background: url('http://r84bh4cvu.hn-bkt.clouddn.com//aboutBg.032563ba.png');
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,7 +122,7 @@ const arr = ref([
   .info {
     width: 100%;
     min-height: 500px;
-    background: url('../../assets/bg/aboutTopBg.png');
+    background: url('http://r84bh4cvu.hn-bkt.clouddn.com/aboutTopBg.62862b8c.webp');
     background-size: cover;
     background-position: top;
     display: flex;

@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-// import loadingBox from '@/components/loadingBox'
+import loadingBox from '@/components/loadingBox'
 import navHeader from '@/components/nav-header'
-import { ElMessage } from 'element-plus'
 </script>
 <template>
   <div class="app">
-    <!--    <loading-box></loading-box>-->
     <div class="bg"></div>
     <navHeader style="position: absolute" />
     <router-view v-slot="{ Component }">
@@ -28,7 +26,7 @@ import { ElMessage } from 'element-plus'
     height: 100%;
     position: fixed;
     z-index: -1;
-    background: url('../assets/bg/aboutBg.png');
+    background: url('http://r84bh4cvu.hn-bkt.clouddn.com/aboutBg.032563ba.png');
     background-size: cover;
     background-position: center;
   }

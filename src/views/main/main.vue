@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import myArticle from '../../components/articleCard'
+import myArticleCard from '../../components/articleCard'
 import myInfoCard from '../../components/infoCard/src/InfoCard.vue'
 import classifyCard from '@/components/classifyCard'
 import websiteInfoCard from '@/components/websiteInfoCard'
@@ -11,7 +11,6 @@ const store = useStore()
 
 const arr = 'Welcome to my website, I will be here to share my study notes'
 const show = ref(arr)
-
 let count = 0
 let flag = 1
 setInterval(() => {
@@ -22,16 +21,22 @@ setInterval(() => {
   show.value = arr.slice(0, count)
 }, 200)
 
+//文章列表
 const articleList = computed(() => store.state.article.articleList)
+//标签列表
 const categoryList = computed(() => store.state.category.categoryList)
 
+//选择分类，获取对应分类的文章
 const categoryClick = (item) => {
   store.commit('article/changeArticleList', item.list)
 }
+
+//点击文章，进行路由跳转
 const to = (id) => {
   router.push(`/article/${id}`)
 }
 
+//点击箭头滚动
 const scrollToContent = () => {
   window.scrollTo({
     top: window.innerHeight,
@@ -57,7 +62,7 @@ const scrollToContent = () => {
           </div>
         </div>
         <transition-group name="wjj" appear>
-          <my-article
+          <my-article-card
             v-for="(item, index) in articleList"
             :key="item._id"
             @click="to(item._id)"
@@ -68,13 +73,11 @@ const scrollToContent = () => {
       </div>
       <div class="card-list">
         <my-info-card />
-
         <classify-card
           class="hide-in-mobile"
           @categoryClick="categoryClick"
           :list="categoryList"
         />
-
         <website-info-card class="hide-in-mobile" />
       </div>
     </div>
@@ -149,7 +152,7 @@ const scrollToContent = () => {
     align-items: center;
     width: 100%;
     height: 100%;
-    background: url('../../assets/bg/bg.png');
+    background: url('http://r84bh4cvu.hn-bkt.clouddn.com/bg.35f0cd6d.webp');
     background-size: cover;
     // 设置背景图位置
     background-position: center;

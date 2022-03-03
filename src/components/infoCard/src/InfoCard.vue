@@ -42,9 +42,17 @@ store.dispatch('article/getDataList')
 </script>
 <template>
   <div class="info-card">
-    <img class="photo-background" src="../../../assets/css/infoBg.png" alt="" />
+    <img
+      class="photo-background"
+      src="http://r84bh4cvu.hn-bkt.clouddn.com/infoBg.3adec593.webp"
+      alt=""
+    />
 
-    <img class="avatar" src="../../../assets/icon/avatar.jpg" alt="" />
+    <img
+      class="avatar"
+      src="http://r84bh4cvu.hn-bkt.clouddn.com/avatar.b89079e1.jpg"
+      alt=""
+    />
     <div class="name">睡前不看手机的勾勾</div>
     <!--    <div class="description">想让和泉纱雾当我妹妹的死宅</div>-->
     <div class="labelList">

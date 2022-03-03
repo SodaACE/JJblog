@@ -1,5 +1,5 @@
 <template>
-  <div class="bg">
+  <div class="loadingBox">
     <div class="loading">Loading{{ dot }}</div>
     <div class="box1"></div>
     <div class="box2"></div>
@@ -19,13 +19,14 @@ setInterval(() => {
 </script>
 
 <style scoped>
-.bg {
+.loadingBox {
   position: fixed;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   top: 0;
   left: 0;
   background-color: rgb(55, 71, 79);
+  z-index: 20;
 }
 .loading {
   z-index: 10;

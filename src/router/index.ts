@@ -19,7 +19,6 @@ const routes: RouteRecordRaw[] = [
         path: 'main',
         component: () =>
           import(
-            /* webpackPrefetch:true */
             /* webpackChunkName:'main' */
             '@/views/main/main.vue'
           )
@@ -28,7 +27,6 @@ const routes: RouteRecordRaw[] = [
         path: 'category',
         component: () =>
           import(
-            /* webpackPrefetch:true */
             /* webpackChunkName:'showCategory' */
             '@/views/showCategory/showCategory.vue'
           )
@@ -38,7 +36,6 @@ const routes: RouteRecordRaw[] = [
         name: 'about',
         component: () =>
           import(
-            /* webpackPrefetch:true */
             /* webpackChunkName:'about' */
             '@/views/about/about.vue'
           )
@@ -48,7 +45,6 @@ const routes: RouteRecordRaw[] = [
         name: 'article',
         component: () =>
           import(
-            /* webpackPrefetch:true */
             /* webpackChunkName:'article' */
             '@/views/article/article.vue'
           )
@@ -61,7 +57,6 @@ const routes: RouteRecordRaw[] = [
     name: 'notFound',
     component: () =>
       import(
-        /* webpackPrefetch:true */
         /* webpackChunkName:'notFound' */
         '@/views/notFound/notFound.vue'
       )

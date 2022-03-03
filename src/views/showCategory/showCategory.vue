@@ -6,7 +6,9 @@ import myInfoCard from '@/components/infoCard'
 import websiteInfoCard from '@/components/websiteInfoCard'
 const store = useStore()
 const router = useRouter()
+//获取标签列表
 const categoryList = computed(() => store.state.category.categoryList)
+//访问对应路由
 const itemclick = (id) => {
   router.push(`/article/${id}`)
 }
@@ -103,7 +105,7 @@ const itemclick = (id) => {
     color: white;
     width: 100%;
     height: 45vh;
-    background: url('../../assets/bg/bg2.png');
+    background: url('http://r84bh4cvu.hn-bkt.clouddn.com/bg2.3f4c05a6.webp');
     background-position: top;
   }
   .content-block {
@@ -128,7 +130,7 @@ const itemclick = (id) => {
       position: absolute;
       top: -114px;
       z-index: 1;
-      background-image: url('../../assets/icon/wave.png');
+      background-image: url('http://r84bh4cvu.hn-bkt.clouddn.com/wave.4abb6f82.png');
       background-repeat: repeat-x;
       animation: wave 60s linear alternate infinite;
     }

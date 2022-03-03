@@ -3,11 +3,16 @@ import { useRoute } from 'vue-router'
 import { ref, watchEffect } from 'vue'
 import { getArticleList, addArticleCount } from '@/service/article'
 import markdown from '@/components/markdown/src/markdown.vue'
-const article = ref({})
-const count = ref(0)
-const time = ref(0)
-const path = ref({})
 const route = useRoute()
+//文章信息
+const article = ref({})
+//访问量
+const count = ref(0)
+//阅读时间
+const time = ref(0)
+//md文件路径
+const path = ref({})
+//当路由发生变化时，根据id获取文章，修改path的值
 watchEffect(() => {
   let id = route.params.id
   getArticleList({ _id: id }).then((res) => {
@@ -17,9 +22,11 @@ watchEffect(() => {
       title: res.data!.list[0].title
     }
   })
+  //增加访问量的请求
   addArticleCount({ _id: id })
 })
 
+//监听子组件发出的loaded事件，保存count和time
 const loaded = (length: any) => {
   count.value = Math.floor(length / 4)
   time.value = Math.floor(count.value / 360)
@@ -163,7 +170,7 @@ const unShowImg = () => {
     color: white;
     width: 100%;
     height: 45vh;
-    background: url('../../assets/bg/bg2.png');
+    background: url('http://r84bh4cvu.hn-bkt.clouddn.com/bg2.3f4c05a6.webp');
     background-position: top;
 
     .title {
