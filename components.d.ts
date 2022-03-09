@@ -15,6 +15,8 @@ declare module 'vue' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElProgress: typeof import('element-plus/es')['ElProgress']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    FoldItem: typeof import('./src/components/foldMenu/src/foldItem.vue')['default']
+    FoldMenu: typeof import('./src/components/foldMenu/src/foldMenu.vue')['default']
     InfoCard: typeof import('./src/components/infoCard/src/InfoCard.vue')['default']
     LoadingBox: typeof import('./src/components/loadingBox/src/loadingBox.vue')['default']
     Markdown: typeof import('./src/components/markdown/src/markdown.vue')['default']

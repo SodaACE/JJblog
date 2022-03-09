@@ -2,7 +2,8 @@
 import { useRoute } from 'vue-router'
 import { ref, watchEffect } from 'vue'
 import { getArticleList, addArticleCount } from '@/service/article'
-import markdown from '@/components/markdown/src/markdown.vue'
+import foldMenu from '@/components/foldMenu'
+import markdown from '@/components/markdown'
 const route = useRoute()
 //文章信息
 const article = ref({})
@@ -45,6 +46,12 @@ const showImg = (img: any) => {
 const unShowImg = () => {
   showImgContent.value.removeChild(newImg)
   isShowImg.value = false
+}
+
+//获取文章标题菜单
+const menu = ref()
+const getTitleMenu = (data) => {
+  menu.value = data
 }
 </script>
 <template>
@@ -90,7 +97,15 @@ const unShowImg = () => {
     </div>
     <div class="content">
       <div class="md">
-        <markdown @showImg="showImg" @loaded="loaded" v-bind="path"></markdown>
+        <markdown
+          @titleMenu="getTitleMenu"
+          @showImg="showImg"
+          @loaded="loaded"
+          v-bind="path"
+        ></markdown>
+      </div>
+      <div class="fold-menu">
+        <fold-menu :menu="menu"></fold-menu>
       </div>
     </div>
   </div>
@@ -200,7 +215,19 @@ const unShowImg = () => {
     .md {
       padding: 20px;
       margin-top: 5px;
+      margin-left: 20px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
+    .fold-menu {
+      position: sticky;
+      top: 10px;
+      align-self: flex-start;
+      padding: 10px;
+      margin-top: 5px;
+      margin-left: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
     }
     @keyframes wave {
       from {

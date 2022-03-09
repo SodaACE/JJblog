@@ -1,3 +1,5 @@
+import { Timer } from '@element-plus/icons-vue'
+
 const delay = 1000
 export default function throttle(
   fn: (...args: any) => any,
@@ -27,5 +29,21 @@ export default function throttle(
         return fn(...args)
       }, delay)
     }
+  }
+}
+
+export function debounce(fn: (...args: any) => any, time: number) {
+  //定义一个定时器，保存上一次的定时器
+  let timeout: any
+  //真正执行的函数，用args来接收参数
+  return function (...args: any) {
+    //取消上一次的定时器
+    clearTimeout(timeout)
+    //延迟执行
+    timeout = setTimeout(() => {
+      //返回的函数本质上在调用的时候会隐式绑定
+      //这里我们设置一下执行fn时的this指向
+      fn(...args)
+    }, time)
   }
 }

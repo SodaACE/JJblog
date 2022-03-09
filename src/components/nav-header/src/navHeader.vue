@@ -88,7 +88,7 @@ watch(
             clearable
           />
         </transition>
-        <el-menu class="el-menu-vertical-demo" router="true">
+        <el-menu class="el-menu-vertical-demo" :router="true">
           <el-menu-item
             v-for="item in articleList"
             :index="`/article/${item._id}`"

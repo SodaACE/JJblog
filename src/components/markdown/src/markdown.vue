@@ -4,11 +4,12 @@ import { getArticleMd } from '@/service/article'
 //懒加载函数
 import lazyLoad from '@/utils/lazy-load'
 import useMarkdownIt from '@/components/markdown/useMarkdownIt'
+import useMenu from '@/components/foldMenu/useMenu'
 //获取md解析器，用于将md文件转html代码
 
 export default defineComponent({
   name: 'App',
-  emits: ['loaded', 'showImg'],
+  emits: ['loaded', 'showImg', 'titleMenu'],
   props: {
     categoryName: {
       type: String,
@@ -29,7 +30,12 @@ export default defineComponent({
           title: props.title
         }).then((res: any) => {
           //使用hook，传入md文件和标签名，获取转换后的html字符串
-          content.value = useMarkdownIt(res, props.categoryName)
+          const useMarkdownItRes = useMarkdownIt(res, props.categoryName)
+          content.value = useMarkdownItRes.str
+          console.log(useMarkdownItRes.str)
+          //将menu转成对应的title菜单
+          emit('titleMenu', useMenu(useMarkdownItRes.menu))
+
           //在dom挂载完成后获取所有img元素进行懒加载
           nextTick(() => {
             const images = document.querySelectorAll('img')
@@ -49,8 +55,10 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div>
-    <div style="padding: 4px" class="markdown-body" v-html="content"></div>
-  </div>
+  <div style="padding: 4px" class="markdown-body" v-html="content"></div>
 </template>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+img {
+  height: 300px;
+}
+</style>

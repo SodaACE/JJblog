@@ -20,10 +20,10 @@ export default function (mdFile: any, categoryName: string) {
       )
     }
   })
-  const str = md.render(mdFile)
-  return str
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
+  const str = md
+    .render(mdFile)
+    .replace(/&lt;img/g, '<img')
+    .replace(/img&gt;/g, 'img>')
     .replace(/&quot;/g, '"')
     .replace(/<p></g, '<')
     .replace(/><\/p>/g, '>')
@@ -31,6 +31,9 @@ export default function (mdFile: any, categoryName: string) {
     .replace(/png\)/g, 'png"/>')
     .replace(
       /src="/g,
-      `data-src="${process.env.VUE_APP_BASE_URL}/images/${categoryName}/`
+      `data-src="${process.env.VUE_APP_BASE_URL}images/${categoryName}/`
     )
+  console.log(str)
+  const menu = [...str.matchAll(/<h.*>.*<\/h.>/g)]
+  return { str, menu }
 }

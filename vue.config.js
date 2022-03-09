@@ -7,11 +7,11 @@ module.exports = {
   publicPath: './',
   configureWebpack: {
     externals: {
-      // 'element-plus': 'ElementPlus',
+      'element-plus': 'ElementPlus',
       // axios: 'axios',
-      vue: 'Vue',
+      vue: 'Vue'
       // 'vue-router': 'VueRouter'，
-      highlight: 'highlight'
+      // highlight: 'highlight'
     },
     plugins: [
       AutoImport({
