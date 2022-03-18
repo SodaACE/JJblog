@@ -8,46 +8,25 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     redirect: 'main',
-    component: () =>
-      import(
-        /* webpackPreload:true */
-        /* webpackChunkName:'layout' */
-        '@/views/layout.vue'
-      ),
+    component: () => import('@/views/layout.vue'),
     children: [
       {
         path: 'main',
-        component: () =>
-          import(
-            /* webpackChunkName:'main' */
-            '@/views/main/main.vue'
-          )
+        component: () => import('@/views/main/main.vue')
       },
       {
         path: 'category',
-        component: () =>
-          import(
-            /* webpackChunkName:'showCategory' */
-            '@/views/showCategory/showCategory.vue'
-          )
+        component: () => import('@/views/showCategory/showCategory.vue')
       },
       {
         path: '/about',
         name: 'about',
-        component: () =>
-          import(
-            /* webpackChunkName:'about' */
-            '@/views/about/about.vue'
-          )
+        component: () => import('@/views/about/about.vue')
       },
       {
         path: '/article/:id',
         name: 'article',
-        component: () =>
-          import(
-            /* webpackChunkName:'article' */
-            '@/views/article/article.vue'
-          )
+        component: () => import('@/views/article/article.vue')
       }
     ]
   },

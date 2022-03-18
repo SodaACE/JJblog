@@ -12,17 +12,19 @@ defineProps({
 const scrollToItem = (item: menuItem) => {
   let type = item.type
   let index = item.index
+  //找到对应的元素
   let target = document.querySelectorAll(`h${type}`)[index]
+  //获取内容区距离上顶部的位置
   let t = document.querySelector(`.content`)
-  console.log(item)
   window.scrollTo({
     top: target.offsetTop + t.offsetTop - 10, //相当于定位元素的垂直偏移量
-    left: 0,
-    behavior: 'smooth'
+    left: 0
+    // behavior: 'smooth'
   })
 }
 </script>
 <template>
+  <!--  如果有孩子，就渲染成sub-menu-->
   <template v-if="item.children.length">
     <el-sub-menu :index="item.title">
       <template #title>
@@ -35,6 +37,7 @@ const scrollToItem = (item: menuItem) => {
       ></fold-item>
     </el-sub-menu>
   </template>
+  <!--  否则就渲染成menu-item-->
   <template v-else>
     <el-menu-item :index="item.title" @click="scrollToItem(item)">
       <template #title>

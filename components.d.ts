@@ -6,7 +6,11 @@ declare module 'vue' {
   export interface GlobalComponents {
     ArticleCard: typeof import('./src/components/articleCard/src/articleCard.vue')['default']
     ClassifyCard: typeof import('./src/components/classifyCard/src/classifyCard.vue')['default']
+    CommentInput: typeof import('./src/components/commentsCard/src/commentInput.vue')['default']
+    CommentsCard: typeof import('./src/components/commentsCard/src/commentsCard.vue')['default']
+    CommentsListItem: typeof import('./src/components/commentsCard/src/commentsListItem.vue')['default']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
+    ElButton: typeof import('element-plus/es')['ElButton']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']

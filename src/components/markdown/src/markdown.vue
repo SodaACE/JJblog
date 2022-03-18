@@ -32,7 +32,6 @@ export default defineComponent({
           //使用hook，传入md文件和标签名，获取转换后的html字符串
           const useMarkdownItRes = useMarkdownIt(res, props.categoryName)
           content.value = useMarkdownItRes.str
-          console.log(useMarkdownItRes.str)
           //将menu转成对应的title菜单
           emit('titleMenu', useMenu(useMarkdownItRes.menu))
 
@@ -57,8 +56,4 @@ export default defineComponent({
 <template>
   <div style="padding: 4px" class="markdown-body" v-html="content"></div>
 </template>
-<style lang="less" scoped>
-img {
-  height: 300px;
-}
-</style>
+<style lang="less" scoped></style>

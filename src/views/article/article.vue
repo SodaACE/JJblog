@@ -4,6 +4,7 @@ import { ref, watchEffect } from 'vue'
 import { getArticleList, addArticleCount } from '@/service/article'
 import foldMenu from '@/components/foldMenu'
 import markdown from '@/components/markdown'
+import comments from '@/components/commentsCard'
 const route = useRoute()
 //文章信息
 const article = ref({})
@@ -96,13 +97,18 @@ const getTitleMenu = (data) => {
       </div>
     </div>
     <div class="content">
-      <div class="md">
-        <markdown
-          @titleMenu="getTitleMenu"
-          @showImg="showImg"
-          @loaded="loaded"
-          v-bind="path"
-        ></markdown>
+      <div class="main-content">
+        <div class="md">
+          <markdown
+            @titleMenu="getTitleMenu"
+            @showImg="showImg"
+            @loaded="loaded"
+            v-bind="path"
+          ></markdown>
+        </div>
+        <div class="comments">
+          <comments></comments>
+        </div>
       </div>
       <div class="fold-menu">
         <fold-menu :menu="menu"></fold-menu>
@@ -112,7 +118,7 @@ const getTitleMenu = (data) => {
 </template>
 <style lang="less" scoped>
 @media only screen and (max-width: 600px) {
-  .md {
+  .main-content {
     width: 80vw;
   }
   .font {
@@ -131,9 +137,12 @@ const getTitleMenu = (data) => {
       margin-left: 5px;
     }
   }
+  .fold-menu {
+    display: none;
+  }
 }
 @media screen and (max-width: 1150px) and (min-width: 601px) {
-  .md {
+  .main-content {
     width: 80vw;
   }
   .title {
@@ -146,7 +155,7 @@ const getTitleMenu = (data) => {
   }
 }
 @media only screen and (min-width: 1151px) {
-  .md {
+  .main-content {
     width: 800px;
   }
   .title {
@@ -215,9 +224,9 @@ const getTitleMenu = (data) => {
     .md {
       padding: 20px;
       margin-top: 5px;
-      margin-left: 20px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       border-radius: 10px;
+      margin-bottom: 20px;
     }
     .fold-menu {
       position: sticky;

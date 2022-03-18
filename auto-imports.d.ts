@@ -2,6 +2,7 @@
 // We suggest you to commit this file into source control
 declare global {
   const ElBacktop: typeof import('element-plus/es')['ElBacktop']
+  const ElButton: typeof import('element-plus/es')['ElButton']
   const ElDrawer: typeof import('element-plus/es')['ElDrawer']
   const ElIcon: typeof import('element-plus/es')['ElIcon']
   const ElImage: typeof import('element-plus/es')['ElImage']

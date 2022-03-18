@@ -11,7 +11,6 @@ module.exports = {
       // axios: 'axios',
       vue: 'Vue'
       // 'vue-router': 'VueRouter'，
-      // highlight: 'highlight'
     },
     plugins: [
       AutoImport({

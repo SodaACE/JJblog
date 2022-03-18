@@ -33,7 +33,6 @@ export default function (mdFile: any, categoryName: string) {
       /src="/g,
       `data-src="${process.env.VUE_APP_BASE_URL}images/${categoryName}/`
     )
-  console.log(str)
   const menu = [...str.matchAll(/<h.*>.*<\/h.>/g)]
   return { str, menu }
 }
