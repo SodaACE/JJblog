@@ -3,39 +3,12 @@ import myArticleCard from '../../components/articleCard'
 import myInfoCard from '../../components/infoCard/src/InfoCard.vue'
 import classifyCard from '@/components/classifyCard'
 import websiteInfoCard from '@/components/websiteInfoCard'
-import { computed, ref } from 'vue'
-import { useStore } from '@/store'
-import { useRouter } from 'vue-router'
-const router = useRouter()
-const store = useStore()
+import { useShowSentence, useGetMainData } from '@/views/main/index'
 
-const arr = 'Welcome to my website, I will be here to share my study notes'
-const show = ref(arr)
-let count = 0
-let flag = 1
-setInterval(() => {
-  //如果不断减小到复数，就变成增加，如果不断增大超过length，就变成减小
-  if (count <= 0) flag = 1
-  if (count > arr.length) flag = -1
-  count += flag
-  show.value = arr.slice(0, count)
-}, 200)
-
-//文章列表
-const articleList = computed(() => store.state.article.articleList)
-//标签列表
-const categoryList = computed(() => store.state.category.categoryList)
-
-//选择分类，获取对应分类的文章
-const categoryClick = (item) => {
-  store.commit('article/changeArticleList', item.list)
-}
-
-//点击文章，进行路由跳转
-const to = (id) => {
-  router.push(`/article/${id}`)
-}
-
+// 获取可以时刻变化的sentence
+const sentence = useShowSentence('Welcome to my website, I will be here to share my study notes')
+// 获取信息
+const { articleList, categoryList, categoryClick } = useGetMainData()
 //点击箭头滚动
 const scrollToContent = () => {
   window.scrollTo({
@@ -50,22 +23,20 @@ const scrollToContent = () => {
   <div class="main">
     <div class="bg">
       <div class="title">欢迎来到勾勾的小站</div>
-      <div class="sentence">{{ show }} |</div>
+      <div class="sentence">{{ sentence }} |</div>
       <!--      <a href="#content"></a>-->
       <div class="arrow" @click="scrollToContent"></div>
     </div>
     <div class="content" id="content">
       <div class="article-list">
         <div class="bread-crumbs">
-          <div class="bread-title">
-            当前分类：{{ $store.state.currentCategory }}
-          </div>
+          <div class="bread-title">当前分类：{{ $store.state.currentCategory }}</div>
         </div>
         <transition-group name="wjj" appear>
           <my-article-card
             v-for="(item, index) in articleList"
             :key="item._id"
-            @click="to(item._id)"
+            @click="$router.push(`/article/${item._id}`)"
             :index="index"
             :item="item"
           />
@@ -73,11 +44,7 @@ const scrollToContent = () => {
       </div>
       <div class="card-list">
         <my-info-card />
-        <classify-card
-          class="hide-in-mobile"
-          @categoryClick="categoryClick"
-          :list="categoryList"
-        />
+        <classify-card class="hide-in-mobile" @categoryClick="categoryClick" :list="categoryList" />
         <website-info-card class="hide-in-mobile" />
       </div>
     </div>
@@ -152,7 +119,7 @@ const scrollToContent = () => {
     align-items: center;
     width: 100%;
     height: 100%;
-    background: url('http://r84bh4cvu.hn-bkt.clouddn.com/bg.35f0cd6d.webp');
+    background: url('https://img.jzsp66.xyz/bg.35f0cd6d.webp');
     background-size: cover;
     // 设置背景图位置
     background-position: center;

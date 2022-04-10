@@ -1,17 +1,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useStore } from '@/store'
-import { useRouter } from 'vue-router'
 import myInfoCard from '@/components/infoCard'
 import websiteInfoCard from '@/components/websiteInfoCard'
 const store = useStore()
-const router = useRouter()
 //获取标签列表
 const categoryList = computed(() => store.state.category.categoryList)
-//访问对应路由
-const itemclick = (id) => {
-  router.push(`/article/${id}`)
-}
 </script>
 <template>
   <div class="showCategory">
@@ -23,11 +17,7 @@ const itemclick = (id) => {
         </div>
         <div class="menu">
           <el-menu class="el-menu-vertical-demo">
-            <el-sub-menu
-              :index="index + ''"
-              v-for="(item, index) in categoryList"
-              :key="item._id"
-            >
+            <el-sub-menu :index="index + ''" v-for="(item, index) in categoryList" :key="item._id">
               <template #title>
                 <el-icon><folder-opened /></el-icon>
                 <span>{{ item.categoryName }}</span>
@@ -36,7 +26,7 @@ const itemclick = (id) => {
                 v-for="(article, subIndex) in item.list"
                 :index="`${index}-${subIndex}`"
                 :key="article._id"
-                @click="itemclick(article._id)"
+                @click="$router.push(`/article/${article._id}`)"
               >
                 <el-icon><notebook /></el-icon>
                 <span>{{ article.title }}.md</span>
@@ -105,7 +95,7 @@ const itemclick = (id) => {
     color: white;
     width: 100%;
     height: 45vh;
-    background: url('http://r84bh4cvu.hn-bkt.clouddn.com/bg2.3f4c05a6.webp');
+    background: url('https://img.jzsp66.xyz/bg2.3f4c05a6.webp');
     background-position: top;
   }
   .content-block {
@@ -130,7 +120,7 @@ const itemclick = (id) => {
       position: absolute;
       top: -114px;
       z-index: 1;
-      background-image: url('http://r84bh4cvu.hn-bkt.clouddn.com/wave.4abb6f82.png');
+      background-image: url('https://img.jzsp66.xyz/wave.4abb6f82.png');
       background-repeat: repeat-x;
       animation: wave 60s linear alternate infinite;
     }

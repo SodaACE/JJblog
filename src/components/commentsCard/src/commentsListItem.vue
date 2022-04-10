@@ -1,31 +1,43 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import commentsListItem from './commentsListItem.vue'
 import commentInput from './commentInput.vue'
 // eslint-disable-next-line no-undef
-defineProps({
+const props = defineProps({
   item: {
     type: Object,
     default: () => ({})
   }
 })
 const showReply = ref(false)
+
+const clickReply = (name: string) => {
+  showReply.value = !showReply.value
+}
+
+const status = computed(() => {
+  return props.item.status ? props.item.status + '地说道' : ''
+})
 </script>
 <template>
   <div class="comments-list-item">
     <img class="avatar" :src="item.imgurl" alt="" />
     <div class="detail">
-      <div class="name">{{ item.name }}</div>
+      <div class="name">{{ item.name }}{{ status }}</div>
       <div class="createTime">
-        <div class="time">2019-06-29</div>
-        <div class="reply" @click="showReply = !showReply">回复</div>
+        <div class="time">{{ $filters.formatTime(item.createTIme) }}</div>
+        <div class="reply" @click="clickReply(item.name)">回复</div>
       </div>
       <p class="content">{{ item.comment }}</p>
-      <comment-input v-show="showReply"></comment-input>
+      <transition name="wjj">
+        <comment-input v-show="showReply"></comment-input>
+      </transition>
       <div class="replyList">
-        <template v-for="i in item.replyList" :key="i.createTime">
-          <comments-list-item :item="i"></comments-list-item>
-        </template>
+        <comments-list-item
+          v-for="i in item.replyList"
+          :key="i.createTime"
+          :item="i"
+        ></comments-list-item>
       </div>
     </div>
   </div>
@@ -70,5 +82,16 @@ const showReply = ref(false)
       display: block;
     }
   }
+}
+
+.wjj-enter-from,
+.wjj-leave-to {
+  opacity: 0;
+}
+.wjj-enter-active {
+  transition: all 0.3s;
+}
+.wjj-leave-active {
+  transition: all 0.3s;
 }
 </style>

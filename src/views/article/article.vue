@@ -1,76 +1,26 @@
 <script lang="ts" setup>
-import { useRoute } from 'vue-router'
-import { ref, watchEffect } from 'vue'
-import { getArticleList, addArticleCount } from '@/service/article'
 import foldMenu from '@/components/foldMenu'
 import markdown from '@/components/markdown'
 import comments from '@/components/commentsCard'
-const route = useRoute()
-//文章信息
-const article = ref({})
-//访问量
-const count = ref(0)
-//阅读时间
-const time = ref(0)
-//md文件路径
-const path = ref({})
-//当路由发生变化时，根据id获取文章，修改path的值
-watchEffect(() => {
-  let id = route.params.id
-  getArticleList({ _id: id }).then((res) => {
-    article.value = res.data!.list[0]
-    path.value = {
-      categoryName: res.data!.list[0].categoryName,
-      title: res.data!.list[0].title
-    }
-  })
-  //增加访问量的请求
-  addArticleCount({ _id: id })
-})
-
-//监听子组件发出的loaded事件，保存count和time
-const loaded = (length: any) => {
-  count.value = Math.floor(length / 4)
-  time.value = Math.floor(count.value / 360)
-}
-//浏览图片
-const showImgContent = ref()
-const isShowImg = ref(false)
-let newImg: any
-const showImg = (img: any) => {
-  newImg = document.createElement('img')
-  newImg.style.width = '90%'
-  newImg.setAttribute('src', img.getAttribute('src'))
-  showImgContent.value.appendChild(newImg)
-  isShowImg.value = true
-}
-const unShowImg = () => {
-  showImgContent.value.removeChild(newImg)
-  isShowImg.value = false
-}
-
-//获取文章标题菜单
-const menu = ref()
-const getTitleMenu = (data) => {
-  menu.value = data
-}
+import { useGetInfoAboutArticle, useGetTimeAndLength, useShowImg } from './'
+//获取文章的信息，例如path（categoryName和title）以及article信息，menu目录
+const { path, article, menu } = useGetInfoAboutArticle()
+//获取文章的字数和时间
+const { time, length, loaded } = useGetTimeAndLength()
+//控制是否要显示预览图片
+const { url, isShowImg, showImg } = useShowImg()
 </script>
 <template>
   <div class="show-article">
-    <div
-      class="showImg"
-      ref="showImgContent"
-      @click="unShowImg"
-      :style="{ left: isShowImg ? '0' : '100%' }"
-    ></div>
+    <div class="showImg" @click="isShowImg = false" :style="{ left: isShowImg ? '0' : '100%' }">
+      <img :src="url" style="height: 90%" />
+    </div>
     <div class="bg">
       <div class="title">{{ article.title }}</div>
       <div class="line">
         <div>
           <el-icon><calendar /></el-icon>
-          <span class="font">
-            发表于：{{ $filters.formatTime(article.createTime) }}</span
-          >
+          <span class="font"> 发表于：{{ $filters.formatTime(article.createTime) }}</span>
         </div>
         <div>
           <el-icon><folder-opened /></el-icon>
@@ -80,18 +30,14 @@ const getTitleMenu = (data) => {
       <div class="line">
         <div>
           <el-icon><document /></el-icon>
-          <span class="font">字数总计：{{ count }}</span>
+          <span class="font">字数总计：{{ length }}</span>
         </div>
         <div>
           <el-icon><timer /></el-icon>
           <span class="font">阅读时长：{{ time }}分钟</span>
         </div>
         <div>
-          <img
-            src="../../assets/icon/see.png"
-            alt=""
-            style="height: 17px; width: 17px"
-          />
+          <img src="../../assets/icon/see.png" alt="" style="height: 17px; width: 17px" />
           <span class="font">访问量：{{ article.count }}</span>
         </div>
       </div>
@@ -100,7 +46,7 @@ const getTitleMenu = (data) => {
       <div class="main-content">
         <div class="md">
           <markdown
-            @titleMenu="getTitleMenu"
+            @titleMenu="(data) => (menu = data)"
             @showImg="showImg"
             @loaded="loaded"
             v-bind="path"
@@ -194,7 +140,7 @@ const getTitleMenu = (data) => {
     color: white;
     width: 100%;
     height: 45vh;
-    background: url('http://r84bh4cvu.hn-bkt.clouddn.com/bg2.3f4c05a6.webp');
+    background: url('https://img.jzsp66.xyz/bg2.3f4c05a6.webp');
     background-position: top;
 
     .title {
@@ -253,11 +199,11 @@ const getTitleMenu = (data) => {
       width: 100%;
       height: 82px;
       position: absolute;
-      top: -82px;
+      top: -80px;
       z-index: 1;
       background-image: url('../../assets/icon/wave.png');
       background-repeat: repeat-x;
-      animation: wave 60s linear alternate infinite;
+      // animation: wave 60s linear alternate infinite;
     }
   }
 }

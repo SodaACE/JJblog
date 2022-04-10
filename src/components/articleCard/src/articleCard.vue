@@ -1,18 +1,20 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-
 // eslint-disable-next-line no-undef
 const props = defineProps({
-  item: Object,
-  index: Number
+  item: {
+    type: Object,
+    default: () => ({})
+  },
+  index: {
+    type: Number,
+    default: 0
+  }
 })
-
-const itemIndex = computed(() => props.index + 1)
 </script>
 <template>
   <div class="article">
     <el-image
-      lazy
+      :lazy="index > 1"
       fit="cover"
       class="image"
       :src="'https://tenapi.cn/acg?time=' + Math.floor(Math.random() * 100)"
@@ -29,7 +31,7 @@ const itemIndex = computed(() => props.index + 1)
         <span>{{ item.count }}次阅读</span>
       </div>
     </div>
-    <div class="index">{{ itemIndex }}</div>
+    <div class="index">{{ index + 1 }}</div>
   </div>
 </template>
 <style lang="less" scoped>

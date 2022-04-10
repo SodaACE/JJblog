@@ -27,14 +27,7 @@ export class wjjRequest {
   request<T = any>(config: wjjRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
       //request指定第二个泛型为传入的泛型，可以指定request返回的Promise的值的类型
-      this.instance
-        .request<any, T>(config)
-        .then((res) => {
-          resolve(res)
-        })
-        .catch((err) => {
-          reject(err)
-        })
+      this.instance.request<any, T>(config).then(resolve, reject)
     })
   }
 
@@ -48,9 +41,5 @@ export class wjjRequest {
 
   delete<T = any>(config: wjjRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
-  }
-
-  patch<T = any>(config: wjjRequestConfig): Promise<T> {
-    return this.request<T>({ ...config, method: 'PATCH' })
   }
 }

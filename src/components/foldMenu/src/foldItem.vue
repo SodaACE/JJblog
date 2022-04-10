@@ -1,23 +1,26 @@
 <script lang="ts" setup>
 import foldItem from './foldItem.vue'
-import { menuItem } from '../useMenu'
+import { PropType } from 'vue'
+import { menuItem } from '../index'
 
 // eslint-disable-next-line no-undef
 defineProps({
   item: {
-    type: Object,
+    type: Object as PropType<menuItem>,
     default: () => ({})
   }
 })
 const scrollToItem = (item: menuItem) => {
-  let type = item.type
-  let index = item.index
+  // 用于获取对应的h标签
+  const { index, type } = item
+
+  //获取容器
+  const container: HTMLElement | null = document.querySelector(`.content`)
+
   //找到对应的元素
-  let target = document.querySelectorAll(`h${type}`)[index]
-  //获取内容区距离上顶部的位置
-  let t = document.querySelector(`.content`)
+  const target: HTMLElement | null = container!.querySelectorAll(`h${type}`)[index]
   window.scrollTo({
-    top: target.offsetTop + t.offsetTop - 10, //相当于定位元素的垂直偏移量
+    top: target!.offsetTop + container!.offsetTop - 10, //相当于定位元素的垂直偏移量
     left: 0
     // behavior: 'smooth'
   })
@@ -30,11 +33,8 @@ const scrollToItem = (item: menuItem) => {
       <template #title>
         <div class="title" v-html="item.title"></div>
       </template>
-      <fold-item
-        v-for="i in item.children"
-        :key="i.title"
-        :item="i"
-      ></fold-item>
+      <!-- 子目录内部渲染fold-item组件，递归组件的核心 -->
+      <fold-item v-for="i in item.children" :key="i.title" :item="i"></fold-item>
     </el-sub-menu>
   </template>
   <!--  否则就渲染成menu-item-->

@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-const arr = ref([
+const arr = [
   {
     label: 'javascript',
     percentage: 70,
@@ -32,7 +30,7 @@ const arr = ref([
     percentage: 60,
     color: '#e6ceac'
   }
-])
+]
 </script>
 <template>
   <div class="about">
@@ -86,9 +84,7 @@ const arr = ref([
           </p>
           <p>项目亮点：</p>
           <p>1：前端使用vue3的composition API结合typescript类型声明进行开发</p>
-          <p>
-            2：后台开发时封装page-content组件并在页面之间进行复用，传入配置对象可以快速构建页面
-          </p>
+          <p>2：后台开发时封装page-content组件并在页面之间进行复用，传入配置对象可以快速构建页面</p>
           <p>3：使用IntersectionObserve进行懒加载，避免一次性发送全部请求</p>
           <p>4：node编写后端，配合中间件进行开发</p>
           <p>5：个人博客的大部分页面对手机端进行了适配</p>
@@ -114,7 +110,7 @@ const arr = ref([
 .about {
   width: 100%;
   height: 100%;
-  background: url('http://r84bh4cvu.hn-bkt.clouddn.com//aboutBg.032563ba.png');
+  background: url('https://img.jzsp66.xyz/aboutBg.032563ba.png');
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,7 +118,7 @@ const arr = ref([
   .info {
     width: 100%;
     min-height: 500px;
-    background: url('http://r84bh4cvu.hn-bkt.clouddn.com/aboutTopBg.62862b8c.webp');
+    background: url('http://img.jzsp66.xyz/aboutTopBg.62862b8c.webp');
     background-size: cover;
     background-position: top;
     display: flex;
@@ -149,10 +145,9 @@ const arr = ref([
         font-size: 16px;
         padding-bottom: 18px;
         border-bottom: 1px dashed #fff;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-          'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif,
-          'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-          'Noto Color Emoji';
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+          'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+          'Segoe UI Symbol', 'Noto Color Emoji';
         font-weight: 400;
         line-height: 1.5;
         text-align: left;
@@ -223,10 +218,9 @@ const arr = ref([
     .about-skill {
       margin-top: 62px;
       p {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-          'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif,
-          'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-          'Noto Color Emoji';
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+          'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+          'Segoe UI Symbol', 'Noto Color Emoji';
         font-size: 17px;
         font-weight: 600;
       }

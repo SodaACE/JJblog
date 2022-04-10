@@ -37,7 +37,7 @@ const showEmojis = ref(false)
       <input type="text" placeholder="邮箱" :value="info.email" />
       <input
         type="text"
-        placeholder="状态（例如开心）5字以内哦~🥵"
+        placeholder="心情，5字以内哦~🥵"
         maxlength="5"
         v-model="info.status"
       />

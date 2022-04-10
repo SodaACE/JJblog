@@ -29,9 +29,7 @@ const to = (url: string) => {
   //如果要跳转到main路由
   if (url === '/main') {
     //如果当前就是main路由，就重新获取article，否则就前往
-    route.path === '/main'
-      ? store.dispatch('article/getDataList')
-      : router.push(url)
+    route.path === '/main' ? store.dispatch('article/getDataList') : router.push(url)
     //修改store中的状态为所有
     store.commit('changeCurrentCategory', '所有')
   } else router.push(url)
@@ -42,26 +40,13 @@ store.dispatch('article/getDataList')
 </script>
 <template>
   <div class="info-card">
-    <img
-      class="photo-background"
-      src="http://r84bh4cvu.hn-bkt.clouddn.com/infoBg.3adec593.webp"
-      alt=""
-    />
+    <img class="photo-background" src="https://img.jzsp66.xyz/infoBg.3adec593.webp" alt="" />
 
-    <img
-      class="avatar"
-      src="http://r84bh4cvu.hn-bkt.clouddn.com/avatar.b89079e1.jpg"
-      alt=""
-    />
+    <img class="avatar" src="https://img.jzsp66.xyz/avatar.b89079e1.jpg" alt="" />
     <div class="name">睡前不看手机的勾勾</div>
     <!--    <div class="description">想让和泉纱雾当我妹妹的死宅</div>-->
     <div class="labelList">
-      <div
-        class="label-item"
-        v-for="item in list"
-        @click="to(item.url)"
-        :key="item.url"
-      >
+      <div class="label-item" v-for="item in list" @click="to(item.url)" :key="item.url">
         <div class="count">{{ item.count }}</div>
         <div class="label">{{ item.label }}</div>
       </div>

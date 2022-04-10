@@ -20,6 +20,6 @@ const request_util = new wjjRequest({
       return res.data
     }
   },
-  timeout: 5000
+  timeout: 100000
 })
 export { request_util, isLoading }

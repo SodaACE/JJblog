@@ -20,10 +20,12 @@ const list = ref([
 const input = ref()
 //搜索到的文章列表
 const articleList = ref([])
-//是否显示抽屉
-const showMobileDrawer = ref(false)
 //是否显示输入框
 const showInput = ref(false)
+//防抖函数
+const debounce_getArticle = debounce(getArticleListWithoutShowLoading)
+//是否显示抽屉
+const showMobileDrawer = ref(false)
 //导航菜单点击
 const navClick = (url: any) => {
   //点击导航栏的时候隐藏抽屉
@@ -43,8 +45,7 @@ const navClick = (url: any) => {
   if (url === '/main') store.commit('changeCurrentCategory', '所有')
   router.push(url)
 }
-//防抖函数
-const debounce_getArticle = debounce(getArticleListWithoutShowLoading)
+
 //监听input输入框的变化
 watch(
   () => input.value,
@@ -81,28 +82,14 @@ watch(
       <!--电脑端显示的nav有搜索框-->
       <div class="nav-pc" style="position: relative">
         <transition name="wjj">
-          <el-input
-            v-if="showInput"
-            v-model="input"
-            placeholder="Please input"
-            clearable
-          />
+          <el-input v-if="showInput" v-model="input" placeholder="Please input" clearable />
         </transition>
         <el-menu class="el-menu-vertical-demo" :router="true">
-          <el-menu-item
-            v-for="item in articleList"
-            :index="`/article/${item._id}`"
-            :key="item._id"
-          >
+          <el-menu-item v-for="item in articleList" :index="`/article/${item._id}`" :key="item._id">
             <span>{{ item.title }}</span>
           </el-menu-item>
         </el-menu>
-        <div
-          class="nav-item"
-          @click="navClick(item.url)"
-          v-for="item in list"
-          :key="item.label"
-        >
+        <div class="nav-item" @click="navClick(item.url)" v-for="item in list" :key="item.label">
           <el-icon v-if="item.icon === 'search'"><search /></el-icon>
           <el-icon v-else-if="item.icon === 'house'"><house /></el-icon>
           <el-icon v-else-if="item.icon === 'folder'"><folder /></el-icon>
@@ -114,9 +101,7 @@ watch(
       <!--手机端显示的nav没有搜索框-->
       <div class="nav-mobile">
         <div class="nav-item">
-          <el-icon size="30px" @click="showMobileDrawer = !showMobileDrawer"
-            ><fold
-          /></el-icon>
+          <el-icon size="30px" @click="showMobileDrawer = !showMobileDrawer"><fold /></el-icon>
           <el-drawer v-model="showMobileDrawer" size="50%">
             <el-menu class="el-menu-vertical-demo">
               <el-menu-item

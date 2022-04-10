@@ -6,14 +6,14 @@ module.exports = {
   outputDir: './build',
   publicPath: './',
   configureWebpack: {
-    externals: {
-      'element-plus': 'ElementPlus',
-      // axios: 'axios',
-      vue: 'Vue'
-      // 'vue-router': 'VueRouter'，
-    },
+    // externals: {
+    //   'element-plus': 'ElementPlus',
+    //   vue: 'Vue',
+    //   'highlight.js': 'hljs'
+    // },
     plugins: [
       AutoImport({
+        imports: ['vue'],
         resolvers: [ElementPlusResolver()]
       }),
       Components({
