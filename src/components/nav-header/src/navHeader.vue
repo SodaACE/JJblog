@@ -27,7 +27,7 @@ const debounce_getArticle = debounce(getArticleListWithoutShowLoading)
 //是否显示抽屉
 const showMobileDrawer = ref(false)
 //导航菜单点击
-const navClick = (url: any) => {
+const navClick = (url: string) => {
   //点击导航栏的时候隐藏抽屉
   showMobileDrawer.value = false
   //如果点击的是搜索按钮
@@ -160,7 +160,7 @@ watch(
   height: 4rem;
 
   //设置抽屉的宽度
-  ::v-deep .el-overlay {
+  :deep(.el-overlay) {
     width: 100vw;
   }
 

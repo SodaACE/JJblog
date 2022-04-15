@@ -15,7 +15,7 @@ defineProps({
   </el-menu>
 </template>
 <style lang="less" scoped>
-::v-deep.el-menu {
+:deep(.el-menu) {
   border: none;
 }
 .menu-title {

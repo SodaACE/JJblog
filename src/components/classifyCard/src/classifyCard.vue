@@ -1,14 +1,13 @@
 <script lang="ts" setup>
 import { useStore } from '@/store'
-// eslint-disable-next-line no-undef
+import { defineProps, defineEmits, PropType } from 'vue'
+
 defineProps({
   list: Array
 })
-// eslint-disable-next-line no-undef
 const emits = defineEmits(['categoryClick'])
 
 const store = useStore()
-
 //点击分类的时候向父组件发射事件，并且修改store中的状态
 const itemClick = (category) => {
   emits('categoryClick', category)
@@ -16,7 +15,7 @@ const itemClick = (category) => {
 }
 </script>
 <template>
-  <div class="classify-card clearfix">
+  <div class="classify-card">
     <div class="title">
       <el-icon :size="20"><folder-opened /></el-icon>
       <h4>所有分类</h4>
@@ -37,23 +36,8 @@ const itemClick = (category) => {
   </div>
 </template>
 <style lang="less" scoped>
-@media only screen and (max-width: 600px) {
-  .classify-card {
-    width: 97vw;
-  }
-}
-@media screen and (max-width: 1150px) and (min-width: 601px) {
-  .classify-card {
-    width: 80vw;
-  }
-}
-@media only screen and (min-width: 1151px) {
-  .classify-card {
-    width: 300px;
-  }
-}
-
 .classify-card {
+  width: 100%;
   background-color: white;
   border-radius: 0.4rem;
   box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.5);

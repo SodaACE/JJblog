@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import 'animate.css'
 import 'normalize.css'
 import './assets/css/index.less'
 import App from './App.vue'

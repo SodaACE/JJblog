@@ -7,6 +7,7 @@ const store = useStore()
 //获取标签列表
 const categoryList = computed(() => store.state.category.categoryList)
 </script>
+
 <template>
   <div class="showCategory">
     <div class="bg">分类</div>
@@ -42,6 +43,7 @@ const categoryList = computed(() => store.state.category.categoryList)
     </div>
   </div>
 </template>
+
 <style lang="less" scoped>
 @media screen and (max-width: 600px) {
   .content-block {

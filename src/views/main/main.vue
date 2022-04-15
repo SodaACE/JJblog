@@ -3,10 +3,10 @@ import myArticleCard from '../../components/articleCard'
 import myInfoCard from '../../components/infoCard/src/InfoCard.vue'
 import classifyCard from '@/components/classifyCard'
 import websiteInfoCard from '@/components/websiteInfoCard'
-import { useShowSentence, useGetMainData } from '@/views/main/index'
-
-// 获取可以时刻变化的sentence
-const sentence = useShowSentence('Welcome to my website, I will be here to share my study notes')
+import sentence from './sentence.vue'
+import { useGetMainData } from '@/views/main/index'
+import { onUpdated, onBeforeUpdate, ref, Ref } from 'vue'
+import { useStore } from '@/store'
 // 获取信息
 const { articleList, categoryList, categoryClick } = useGetMainData()
 //点击箭头滚动
@@ -17,30 +17,52 @@ const scrollToContent = () => {
     behavior: 'smooth'
   })
 }
+
+let observer: IntersectionObserver | null = null
+const components: Ref<HTMLElement[] | null> = ref(null)
+onBeforeUpdate(() => {
+  observer = null
+})
+onUpdated(() => {
+  observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.className = 'fadeIn animate article-card'
+        observer!.unobserve(entry.target)
+      }
+    })
+  })
+  if (components.value)
+    components.value.forEach((item) => {
+      if (observer) observer.observe(item)
+    })
+})
+
+const store = useStore()
 </script>
 
 <template>
   <div class="main">
     <div class="bg">
       <div class="title">欢迎来到勾勾的小站</div>
-      <div class="sentence">{{ sentence }} |</div>
-      <!--      <a href="#content"></a>-->
+      <sentence class="sentence" />
       <div class="arrow" @click="scrollToContent"></div>
     </div>
     <div class="content" id="content">
       <div class="article-list">
         <div class="bread-crumbs">
-          <div class="bread-title">当前分类：{{ $store.state.currentCategory }}</div>
+          <div class="bread-title">当前分类：{{ store.state.currentCategory }}</div>
         </div>
-        <transition-group name="wjj" appear>
-          <my-article-card
-            v-for="(item, index) in articleList"
-            :key="item._id"
-            @click="$router.push(`/article/${item._id}`)"
-            :index="index"
-            :item="item"
-          />
-        </transition-group>
+
+        <div
+          class="animate article-card"
+          v-for="(item, index) in articleList"
+          :key="item._id"
+          ref="components"
+          @click="$router.push(`/article/${item._id}`)"
+        >
+          <my-article-card :index="index" :item="item" />
+        </div>
       </div>
       <div class="card-list">
         <my-info-card />
@@ -48,21 +70,20 @@ const scrollToContent = () => {
         <website-info-card class="hide-in-mobile" />
       </div>
     </div>
-    <div class="at-bottom">到底了哦~底了哦~了哦~哦~</div>
   </div>
 </template>
 
 <style lang="less" scoped>
 @media only screen and (max-width: 1150px) {
-  .title {
-    font-size: 1.5rem;
+  .bg {
+    .title {
+      font-size: 1.5rem;
+    }
+    .sentence {
+      font-size: 1rem;
+    }
   }
-  .sentence {
-    font-size: 1rem;
-  }
-  .at-bottom {
-    font-size: 0.7rem;
-  }
+
   .content {
     flex-direction: column-reverse;
     align-items: center;
@@ -72,40 +93,62 @@ const scrollToContent = () => {
   }
 }
 @media only screen and (max-width: 600px) {
-  .bread-crumbs {
+  //右侧卡片列表
+  .card-list {
     width: 97vw;
-    margin-bottom: 1rem;
   }
+  .article-list {
+    width: 97vw;
+    .article-card {
+      height: 33vh;
+      min-height: 250px;
+    }
+  }
+  /*-------------------------------------------------*/
   .hide-in-mobile {
     display: none;
   }
 }
 @media only screen and (max-width: 1150px) and (min-width: 601px) {
-  .bread-crumbs {
+  //右侧卡片列表
+  .card-list {
     width: 80vw;
-    margin-bottom: 1rem;
   }
+  .article-list {
+    width: 80vw;
+    .article-card {
+      height: 33vh;
+      min-height: 300px;
+    }
+  }
+  /*-------------------------------------------------*/
 }
 @media only screen and (min-width: 1151px) {
-  .title {
-    font-size: 2.5rem;
+  //右侧卡片列表
+  .card-list {
+    width: 300px;
+    margin-left: 20px;
   }
-  .sentence {
-    font-size: 1.5rem;
+  .article-list {
+    width: 800px;
+    .article-card {
+      height: 33vh;
+      min-height: 250px;
+    }
   }
-  .at-bottom {
-    font-size: 1.2rem;
+  .bg {
+    .title {
+      font-size: 2.5rem;
+    }
+    .sentence {
+      font-size: 1.5rem;
+    }
   }
+  /*-------------------------------------------------*/
+
   .content {
     flex-direction: row;
     justify-content: center;
-  }
-  .card-list {
-    margin-left: 20px;
-  }
-  .bread-crumbs {
-    width: 800px;
-    margin: 1rem 0;
   }
 }
 .main {
@@ -164,34 +207,17 @@ const scrollToContent = () => {
     display: flex;
 
     .article-list {
+      .article-card {
+        margin-bottom: 1rem;
+      }
       .bread-crumbs {
         background-color: white;
-
         padding: 1rem 0;
         border-radius: 0.4rem;
+        margin: 1rem 0;
         box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.5);
         .bread-title {
           margin-left: 1rem;
-        }
-      }
-      .category-item {
-        display: flex;
-        cursor: pointer;
-        margin-left: 1rem;
-        padding: 0.3rem;
-        align-items: center;
-
-        &:hover {
-          color: rgba(0, 0, 0, 0.2);
-        }
-
-        .count {
-          background-color: rgb(115, 201, 229);
-          color: white;
-          padding: 0 0.5rem;
-          margin-left: 5px;
-          font-size: 0.8rem;
-          border-radius: 2px;
         }
       }
     }
@@ -203,24 +229,5 @@ const scrollToContent = () => {
       }
     }
   }
-}
-.at-bottom {
-  padding: 1rem 0;
-  text-align: center;
-  color: black;
-  font-weight: bold;
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
-.wjj-enter-from,
-.wjj-leave-to {
-  opacity: 0;
-}
-
-.wjj-leave-active {
-  transition: all 0.5s;
-}
-.wjj-enter-active {
-  transition: all 0.5s 0.5s;
 }
 </style>

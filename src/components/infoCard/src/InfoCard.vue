@@ -34,9 +34,6 @@ const to = (url: string) => {
     store.commit('changeCurrentCategory', '所有')
   } else router.push(url)
 }
-//发送请求获取文章列表和标签列表
-store.dispatch('category/getDataList')
-store.dispatch('article/getDataList')
 </script>
 <template>
   <div class="info-card">
@@ -54,22 +51,8 @@ store.dispatch('article/getDataList')
   </div>
 </template>
 <style lang="less" scoped>
-@media only screen and (max-width: 600px) {
-  .info-card {
-    width: 97vw;
-  }
-}
-@media screen and (max-width: 1150px) and (min-width: 601px) {
-  .info-card {
-    width: 80vw;
-  }
-}
-@media only screen and (min-width: 1151px) {
-  .info-card {
-    width: 300px;
-  }
-}
 .info-card {
+  width: 100%;
   background-color: white;
   border-radius: 0.4rem;
   display: flex;
@@ -77,17 +60,17 @@ store.dispatch('article/getDataList')
   align-items: center;
   box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.5);
   .photo-background {
-    height: 130px;
+    height: 8rem;
     width: 100%;
     object-fit: cover;
     border-radius: 0.4rem 0.4rem 0 0;
   }
   .avatar {
-    width: 90px;
-    height: 90px;
+    width: 5rem;
+    height: 5rem;
     border-radius: 50%;
-    margin-top: -50px;
-    border: 4px solid rgba(255, 255, 255, 0.3);
+    margin-top: -3rem;
+    border: 0.25rem solid rgba(255, 255, 255, 0.3);
   }
 
   .name {
@@ -104,10 +87,10 @@ store.dispatch('article/getDataList')
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 0.6rem;
       cursor: pointer;
       .label {
-        margin: 10px 0;
+        margin: 0.6rem 0;
         font-weight: 500;
       }
       .count {

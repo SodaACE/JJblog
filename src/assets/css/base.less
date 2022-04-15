@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
 }
-*{
+* {
   font-family: sleek;
   font-weight: 600;
 }
@@ -12,16 +12,22 @@ html,
   font-size: 16px;
   height: 100%;
   width: 100%;
-  --abc:red;
 }
+/*
+sm	640px	@media (min-width: 640px) { ... }
+md	768px	@media (min-width: 768px) { ... }
+lg	1024px	@media (min-width: 1024px) { ... }
+xl	1280px	@media (min-width: 1280px) { ... }
+2xl	1536px	@media (min-width: 1536px) { ... }
+*/
 .clearfix::before,
-.clearfix::after{
+.clearfix::after {
   content: '';
   display: table;
   clear: both;
 }
 .markdown-body {
-  code{
+  code {
     background-color: #3ff9dc20;
   }
 }

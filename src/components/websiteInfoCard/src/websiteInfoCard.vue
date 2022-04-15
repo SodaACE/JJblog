@@ -45,22 +45,8 @@ const list = computed(() => [
   </div>
 </template>
 <style lang="less" scoped>
-@media only screen and (max-width: 600px) {
-  .website-info-card {
-    width: 97vw;
-  }
-}
-@media screen and (max-width: 1150px) and (min-width: 601px) {
-  .website-info-card {
-    width: 80vw;
-  }
-}
-@media only screen and (min-width: 1151px) {
-  .website-info-card {
-    width: 300px;
-  }
-}
 .website-info-card {
+  width: 100%;
   background-color: white;
   border-radius: 0.4rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);

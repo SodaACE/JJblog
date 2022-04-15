@@ -1,0 +1,12 @@
+.animate{
+
+  transition:all .5s;
+
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+.fadeIn{
+  opacity: 1;
+  transform: none;
+}

@@ -1,17 +1,18 @@
 import { request_util } from '@/service'
+import { Article } from '@/store/article/types'
 import axios from 'axios'
 //请求到的数据的类型
-interface ArticleType {
+export interface ArticleType {
   status: boolean
   data?: {
     allCount: number
-    list: any[]
+    list: Article[]
   }
   msg?: string //错误信息
 }
 
 //增加访问量接口返回的数据的类型
-interface AddCountType {
+export interface AddCountType {
   status: boolean
   msg?: string
 }

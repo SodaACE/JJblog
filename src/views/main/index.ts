@@ -1,7 +1,7 @@
-import { computed, ref } from 'vue'
+import { computed, ref, Ref } from 'vue'
 import { useStore } from '@/store'
 
-export function useShowSentence(sentence: string) {
+export function useShowSentence(sentence: string): Ref<string> {
   const show = ref(sentence)
   let count = 0
   let flag = 1
@@ -17,6 +17,10 @@ export function useShowSentence(sentence: string) {
 
 export function useGetMainData() {
   const store = useStore()
+  //发送请求获取文章列表和标签列表
+  store.dispatch('category/getDataList')
+  store.dispatch('article/getDataList')
+
   //文章列表
   const articleList = computed(() => store.state.article.articleList)
   //标签列表

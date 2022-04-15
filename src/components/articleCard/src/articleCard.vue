@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-// eslint-disable-next-line no-undef
-const props = defineProps({
+import { defineProps, PropType } from 'vue'
+import { Article } from '@/store/article/types'
+import { formatUtcString } from '@/utils/data-formate'
+defineProps({
   item: {
-    type: Object,
+    type: Object as PropType<Article>,
     default: () => ({})
   },
   index: {
@@ -23,11 +25,11 @@ const props = defineProps({
     <div class="article-info">
       <div class="description">{{ item.description }}</div>
       <div class="info-list">
-        <img src="../../../assets/icon/time.png" alt="" />
-        <span>{{ $filters.formatTime(item.createTime) }}</span>
-        <img src="../../../assets/icon/folder-fill.png" alt="" />
+        <img src="@/assets/icon/time.png" alt="" />
+        <span>{{ formatUtcString(item.createTime) }}</span>
+        <img src="@/assets/icon/folder-fill.png" alt="" />
         <span>{{ item.categoryName }}</span>
-        <img src="../../../assets/icon/see.png" alt="" />
+        <img src="@/assets/icon/see.png" alt="" />
         <span>{{ item.count }}次阅读</span>
       </div>
     </div>
@@ -35,42 +37,32 @@ const props = defineProps({
   </div>
 </template>
 <style lang="less" scoped>
-@media screen and (max-width: 600px) {
-  .article-info {
-    font-size: 12px;
-  }
-  .article {
-    width: 97vw;
-    height: 33vh;
-    min-height: 250px;
-  }
-  .title {
-    font-size: 1.5rem;
-  }
+@media (max-width: 600px) {
+  // .article-info {
+  //   font-size: 12px;
+  // }
+
+  // .title {
+  //   font-size: 1.5rem;
+  // }
 }
-@media screen and (max-width: 1150px) and (min-width: 601px) {
-  .article-info {
-    font-size: 12px;
-  }
-  .article {
-    width: 80vw;
-    height: 33vh;
-    min-height: 250px;
-  }
-  .title {
-    font-size: 1.5rem;
-  }
+@media (max-width: 1150px) and (min-width: 601px) {
+  // .article-info {
+  //   font-size: 12px;
+  // }
+
+  // .title {
+  //   font-size: 1.5rem;
+  // }
 }
-@media screen and (min-width: 1151px) {
-  .article {
-    width: 800px;
-    height: 300px;
-  }
-  .title {
-    font-size: 2rem;
-  }
+@media (min-width: 1151px) {
+  // .title {
+  //   font-size: 2rem;
+  // }
 }
 .article {
+  width: 100%;
+  height: 100%;
   position: relative;
   display: flex;
   justify-content: center;
@@ -135,6 +127,7 @@ const props = defineProps({
     .info-list {
       display: flex;
       align-items: center;
+
       div {
         margin-left: 0.8rem;
       }

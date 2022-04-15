@@ -1,23 +1,26 @@
 import { useRoute } from 'vue-router'
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, Ref } from 'vue'
 import { addArticleCount, getArticleList } from '@/service/article'
+import { Article } from '@/store/article/types'
 
 export function useGetInfoAboutArticle() {
   //获取文章标题菜单
   const menu = ref()
   const route = useRoute()
   //文章信息
-  const article = ref({})
+  const article: Ref<Article | null> = ref(null)
   //md文件路径
   const path = ref({})
   watchEffect(() => {
     //当路由发生变化时，根据id获取文章，修改path的值
     const id = route.params.id
     getArticleList({ _id: id }).then((res) => {
-      article.value = res.data!.list[0]
-      path.value = {
-        categoryName: res.data!.list[0].categoryName,
-        title: res.data!.list[0].title
+      if (res.data) {
+        article.value = res.data.list[0]
+        path.value = {
+          categoryName: res.data.list[0].categoryName,
+          title: res.data.list[0].title
+        }
       }
     })
     //增加访问量的请求
