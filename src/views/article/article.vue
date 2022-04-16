@@ -139,8 +139,8 @@ const { url, isShowImg, showImg } = useShowImg()
     justify-content: center;
     color: white;
     width: 100%;
-    height: 45vh;
-    background: url('https://img.jzsp66.xyz/bg2.3f4c05a6.webp');
+    height: 25rem;
+    background: var(--article-bg);
     background-position: top;
 
     .title {

@@ -37,7 +37,7 @@ const arr = [
     <div class="info">
       <h3>个人简介</h3>
       <div class="content">
-        <img src="../../assets/icon/avatar.jpg" alt="" />
+        <img src="@/assets/icon/avatar.jpg" alt="" />
         <div style="padding: 0 40px">
           <p class="name">wjj（勾勾）</p>
           <p class="description">
@@ -75,7 +75,7 @@ const arr = [
           <div class="title">个人博客系统</div>
           <div>
             页面地址：
-            <a href="http://www.fjxiangcun.com/">http://www.baidu.com/</a>
+            <a href="https://www.jzsp66.xyz">https://www.jzsp66.xyz</a>
           </div>
           <p>项目介绍：</p>
           <p style="line-height: 1.4; font-weight: 500">
@@ -110,7 +110,7 @@ const arr = [
 .about {
   width: 100%;
   height: 100%;
-  background: url('https://img.jzsp66.xyz/aboutBg.032563ba.png');
+  background: var(--about-content-bg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,7 +118,7 @@ const arr = [
   .info {
     width: 100%;
     min-height: 500px;
-    background: url('http://img.jzsp66.xyz/aboutTopBg.62862b8c.webp');
+    background: var(--about-top-bg);
     background-size: cover;
     background-position: top;
     display: flex;

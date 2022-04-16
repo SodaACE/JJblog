@@ -96,8 +96,8 @@ const categoryList = computed(() => store.state.category.categoryList)
     font-size: 30px;
     color: white;
     width: 100%;
-    height: 30rem;
-    background: url('https://img.jzsp66.xyz/bg2.3f4c05a6.webp');
+    height: 25rem;
+    background: var(--category-bg);
     background-position: top;
   }
   .content-block {
@@ -106,14 +106,7 @@ const categoryList = computed(() => store.state.category.categoryList)
     justify-content: center;
     margin: 2rem 0;
     position: relative;
-    @keyframes wave {
-      from {
-        background-position: 0 bottom;
-      }
-      to {
-        background-position: 1000% bottom;
-      }
-    }
+
     &::after {
       content: '';
       display: block;
@@ -122,9 +115,8 @@ const categoryList = computed(() => store.state.category.categoryList)
       position: absolute;
       top: -114px;
       z-index: 1;
-      background-image: url('https://img.jzsp66.xyz/wave.4abb6f82.png');
+      background-image: var(--wave);
       background-repeat: repeat-x;
-      animation: wave 60s linear alternate infinite;
     }
     .content {
       background-color: white;
