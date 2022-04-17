@@ -156,7 +156,7 @@ const arr = [
     h3 {
       font-size: 24px;
       color: #fff;
-      background-image: url('../../assets/icon/line_wave_w.png');
+      background-image: var(--line-wave);
       padding: 0 3px 15px 3px;
       margin-top: 60px;
       margin-right: 700px;
@@ -203,7 +203,7 @@ const arr = [
       left: 0;
       top: -82px;
       z-index: 1;
-      background-image: url('../../assets/icon/wave.png');
+      background-image: var(--wave);
       background-repeat: repeat-x;
       //调整水平位置
       animation: wave 60s linear alternate infinite;

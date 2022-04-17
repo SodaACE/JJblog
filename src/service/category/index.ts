@@ -1,18 +1,11 @@
 import { request_util } from '@/service'
-//获取的分类的类型
-interface CategoryType {
-  status: boolean
-  data?: {
-    allCount: number
-    list: any[]
-  }
-  msg?: string
-}
+import { Category } from './../../store/category/types'
+import { GetOperationsRes } from './../index'
 
 //获取文章分类
 export function getCategoryList(data: any) {
-  return request_util.post<CategoryType>({
-    url: '/category/getlist',
-    data
+  return request_util.get<GetOperationsRes<Category>>({
+    url: '/category/',
+    params: data
   })
 }

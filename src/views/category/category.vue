@@ -6,6 +6,7 @@ import websiteInfoCard from '@/components/websiteInfoCard'
 const store = useStore()
 //获取标签列表
 const categoryList = computed(() => store.state.category.categoryList)
+//FIXME: 解决store刷新没数据的问题
 </script>
 
 <template>
@@ -45,50 +46,53 @@ const categoryList = computed(() => store.state.category.categoryList)
 </template>
 
 <style lang="less" scoped>
+// 小屏幕
 @media screen and (max-width: 600px) {
   .content-block {
     flex-direction: column-reverse;
     align-items: center;
-  }
-  .content {
-    width: 97vw;
-    margin: 1rem 0;
-  }
-  .category-list {
-    width: 97vw;
+    .content,
+    .card-list {
+      width: 97vw;
+      margin: 1rem 0;
+    }
   }
 }
+// 中屏幕
 @media screen and (max-width: 1150px) and (min-width: 601px) {
   .content-block {
     flex-direction: column-reverse;
     align-items: center;
-  }
-  .content {
-    width: 80vw;
-    margin: 1rem 0;
-  }
-  .category-list {
-    width: 80vw;
-  }
-  .card-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    .content,
+    .card-list {
+      width: 80vw;
+      margin: 1rem 0;
+    }
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 }
+// 大屏幕
 @media screen and (min-width: 1151px) {
-  .content {
-    width: 800px;
-  }
-  .card-list {
-    margin-left: 20px;
+  .content-block {
+    justify-content: center;
+    .content {
+      width: 800px;
+    }
+    .card-list {
+      width: 300px;
+      margin-left: 20px;
+    }
   }
 }
+
 .showCategory {
   width: 100%;
   display: flex;
   flex-direction: column;
-
   .bg {
     display: flex;
     align-items: center;
@@ -103,7 +107,7 @@ const categoryList = computed(() => store.state.category.categoryList)
   .content-block {
     width: 100%;
     display: flex;
-    justify-content: center;
+
     margin: 2rem 0;
     position: relative;
 

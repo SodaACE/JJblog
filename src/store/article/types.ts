@@ -1,13 +1,15 @@
 export interface Article {
-  _id?: string
-  categoryId?: string
-  categoryName?: string
-  title?: string
-  createTime?: string
-  count?: number
-  description?: string
+  _id: string
+  categoryName: string
+  content: string
+  count: number
+  createTime: Date
+  description: string
+  labelList: any[]
+  title: string
+  updateTime: Date
 }
-export interface IArticleType {
+export interface IArticleState {
   articleList: Article[]
   allCount: number
 }

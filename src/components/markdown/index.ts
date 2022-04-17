@@ -2,20 +2,22 @@ import markdown from './src/markdown.vue'
 export default markdown
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
-import { getArticleMd } from '@/service/article'
+import { getArticleList } from '@/service/article'
 import { ref, watchEffect, nextTick, Ref } from 'vue'
 import { useMenus } from '@/components/foldMenu'
 //懒加载函数
 import lazyLoad from '@/utils/lazy-load'
 
 // 将md文件转成对应的html字符串
-export function useMarkdownIt(mdFile: any, categoryName: string) {
+export function useMarkdownIt(mdFile: string) {
   const md = new MarkdownIt({
-    highlight: function (str: any, lang: any) {
+    highlight: function (str: string, lang: string) {
       if (lang && hljs.getLanguage(lang)) {
         try {
           return (
-            '<pre class="hljs"><code>' + hljs.highlight(lang, str, true).value + '</code></pre>'
+            '<pre class="hljs"><code>' +
+            hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+            '</code></pre>'
           )
         } catch (__) {
           console.log(__)
@@ -25,14 +27,7 @@ export function useMarkdownIt(mdFile: any, categoryName: string) {
       return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>'
     }
   })
-  const str = md
-    .render(mdFile)
-    .replace(/&lt;img/g, '<img')
-    .replace(/img&gt;/g, 'img>')
-    .replace(/&quot;/g, '"')
-    .replace(/<p></g, '<')
-    .replace(/><\/p>/g, '>')
-    .replace(/src="/g, `data-src="${process.env.VUE_APP_BASE_URL}images/${categoryName}/`)
+  const str: string = md.render(mdFile)
   const menu = [...str.matchAll(/<h.>.*<\/h.>/g)]
   return { str, menu }
 }
@@ -42,13 +37,13 @@ export function useMarkdown(props: any, emit: any): Ref<string> {
   const content = ref('')
   watchEffect(() => {
     //如果传入了categoryName和title的话，就去发送请求获取md文件
-    if (props.categoryName && props.title)
-      getArticleMd({
-        categoryName: props.categoryName,
+    if (props.title)
+      getArticleList({
         title: props.title
-      }).then((res: any) => {
-        //使用hook，传入md文件和标签名，获取转换后的html字符串
-        const useMarkdownItRes = useMarkdownIt(res, props.categoryName)
+      }).then((res) => {
+        const md = res.data?.list[0].content as string
+        //使用hook，传入md字符串，获取转换后的html字符串
+        const useMarkdownItRes = useMarkdownIt(md)
         content.value = useMarkdownItRes.str
         //将menu转成对应的title菜单
         emit('titleMenu', useMenus(useMarkdownItRes.menu))
@@ -60,7 +55,7 @@ export function useMarkdown(props: any, emit: any): Ref<string> {
           lazyLoad(images)
         })
         //发射加载成功事件，并且把md文件大小发送给父组件
-        emit('loaded', res.length)
+        emit('loaded', md.length)
       })
   })
 

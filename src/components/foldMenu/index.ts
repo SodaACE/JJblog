@@ -14,7 +14,7 @@ class menuItem {
 }
 
 // 将所有h标签转成父子结构
-export function useMenus(menu: any[]): any[] {
+export function useMenus(menu: any[]): menuItem[] {
   //保存所有h min标签
   const arr: menuItem[] = []
   const arrIndex: number[] = new Array(7).fill(0)

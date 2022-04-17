@@ -1,14 +1,14 @@
-import { IArticleType } from '@/store/article/types'
-import { ICategoryType } from '@/store/category/types'
+import { IArticleState } from '@/store/article/types'
+import { ICategoryState } from '@/store/category/types'
 
-export interface IRootType {
+export interface IRootState {
   currentCategory: string
   showMobileDrawer: boolean
   isLoading: boolean
 }
 
 interface IRootWithModule {
-  article: IArticleType
-  category: ICategoryType
+  article: IArticleState
+  category: ICategoryState
 }
-export type IStoreType = IRootType & IRootWithModule
+export type IStoreType = IRootState & IRootWithModule

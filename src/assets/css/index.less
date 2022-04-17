@@ -1,4 +1,50 @@
+
+@import '~github-markdown-css/github-markdown-light.css';
+@import '~highlight.js/styles/an-old-hope.css';
 @import './base.less';
 @import "./animate.css";
-@import '~github-markdown-css/github-markdown-light.css';
-@import '~highlight.js/styles/atom-one-dark-reasonable.css';
+.markdown-body{
+
+  h1{
+    border-left: 5px solid rgb(230,162,60);
+    font-size: 1.5em;
+    padding:0.5em 0;
+    border-bottom: none;
+    background-color:rgba(230,162,60,.15);
+    color:rgb(230,162,60);
+  }
+  h2{
+    border-left: 5px solid rgb(64,158,255);
+    font-size: 1.3em;
+    padding:0.5em 0;
+    border-bottom: none;
+    background-color:rgba(64,158,255,.15);
+    color:rgb(64,158,255);
+  }
+  h3{
+    padding:0.4em 0;
+    border-left: 5px solid rgba(103,194,58);
+    background-color: rgba(103,194,58,.15);
+    color:rgba(103,194,58);
+  }
+  h4{
+    padding:0.4em 0;
+    border-left: 5px solid rgba(245,108,108);
+    background-color: rgba(245,108,108,.15);
+    color:rgba(245,108,108);
+  }
+  h5{
+    padding:0.3em 0;
+    border-left: 5px solid rgb(245, 108, 199);
+    background-color: rgba(245, 108, 199,.15);
+    color:rgb(245, 108, 199);
+  }
+  h1,h2,h3,h4,h5{
+    padding-left: .7em;
+  }
+}
+@media (max-width:601px) {
+  .markdown-body{
+    font-size: 12px;
+  }
+}

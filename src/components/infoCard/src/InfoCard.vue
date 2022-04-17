@@ -41,7 +41,6 @@ const to = (url: string) => {
 
     <img class="avatar" src="https://img.jzsp66.xyz/avatar.b89079e1.jpg" alt="" />
     <div class="name">睡前不看手机的勾勾</div>
-    <!--    <div class="description">想让和泉纱雾当我妹妹的死宅</div>-->
     <div class="labelList">
       <div class="label-item" v-for="item in list" @click="to(item.url)" :key="item.url">
         <div class="count">{{ item.count }}</div>

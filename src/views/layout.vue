@@ -26,7 +26,7 @@ import navHeader from '@/components/nav-header'
     height: 100%;
     position: fixed;
     z-index: -1;
-    background: url('http://img.jzsp66.xyz/aboutBg.032563ba.png');
+    background: var(--content-bg);
     background-size: cover;
     background-position: center;
   }

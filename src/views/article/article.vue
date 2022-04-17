@@ -184,15 +184,6 @@ const { url, isShowImg, showImg } = useShowImg()
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       border-radius: 10px;
     }
-    @keyframes wave {
-      from {
-        background-position: 0 bottom;
-      }
-      to {
-        background-position: 1000% bottom;
-      }
-    }
-    //animation: wave 60s linear alternate infinite;
     &::after {
       content: '';
       display: block;
@@ -201,9 +192,8 @@ const { url, isShowImg, showImg } = useShowImg()
       position: absolute;
       top: -80px;
       z-index: 1;
-      background-image: url('../../assets/icon/wave.png');
+      background-image: var(--wave);
       background-repeat: repeat-x;
-      // animation: wave 60s linear alternate infinite;
     }
   }
 }

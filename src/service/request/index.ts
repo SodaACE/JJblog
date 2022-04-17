@@ -42,4 +42,7 @@ export class wjjRequest {
   delete<T = any>(config: wjjRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
+  put<T = any>(config: wjjRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'PUT' })
+  }
 }

@@ -22,4 +22,13 @@ const request_util = new wjjRequest({
   },
   timeout: 100000
 })
+
+export interface GetOperationsRes<T> {
+  status: boolean
+  data?: {
+    allCount: number
+    list: T[]
+  }
+  message?: string
+}
 export { request_util, isLoading }

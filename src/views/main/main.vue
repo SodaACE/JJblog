@@ -43,7 +43,7 @@ const store = useStore()
 
 <template>
   <div class="main">
-    <div class="bg">
+    <div class="top">
       <div class="title">欢迎来到勾勾的小站</div>
       <sentence class="sentence" />
       <div class="arrow" @click="scrollToContent"></div>
@@ -75,7 +75,7 @@ const store = useStore()
 
 <style lang="less" scoped>
 @media only screen and (max-width: 1150px) {
-  .bg {
+  .top {
     .title {
       font-size: 1.5rem;
     }
@@ -104,7 +104,6 @@ const store = useStore()
       min-height: 250px;
     }
   }
-  /*-------------------------------------------------*/
   .hide-in-mobile {
     display: none;
   }
@@ -121,7 +120,6 @@ const store = useStore()
       min-height: 300px;
     }
   }
-  /*-------------------------------------------------*/
 }
 @media only screen and (min-width: 1151px) {
   //右侧卡片列表
@@ -133,10 +131,10 @@ const store = useStore()
     width: 800px;
     .article-card {
       height: 33vh;
-      min-height: 250px;
+      min-height: 320px;
     }
   }
-  .bg {
+  .top {
     .title {
       font-size: 2.5rem;
     }
@@ -144,8 +142,6 @@ const store = useStore()
       font-size: 1.5rem;
     }
   }
-  /*-------------------------------------------------*/
-
   .content {
     flex-direction: row;
     justify-content: center;
@@ -155,14 +151,14 @@ const store = useStore()
   width: 100%;
   height: 100%;
   transition: all 0.5s;
-  .bg {
+  .top {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
-    background: url('https://img.jzsp66.xyz/bg.35f0cd6d.webp');
+    background: var(--main-top-bg);
     background-size: cover;
     // 设置背景图位置
     background-position: center;
@@ -224,7 +220,7 @@ const store = useStore()
 
     .card-list {
       margin-top: 1rem;
-      div {
+      div:not(:last-of-type) {
         margin-bottom: 1rem;
       }
     }

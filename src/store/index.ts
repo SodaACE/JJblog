@@ -1,9 +1,9 @@
 import { createStore, useStore } from 'vuex'
 import articleModule from './article/index'
 import categoryModule from './category/index'
-import { IStoreType, IRootType } from './types'
+import { IStoreType, IRootState } from './types'
 
-const store = createStore<IRootType>({
+const store = createStore<IRootState>({
   state() {
     return {
       currentCategory: '所有',

@@ -11,12 +11,12 @@ export function useGetInfoAboutArticle() {
   const menu = ref()
   const route = useRoute()
   //文章信息
-  const article: Ref<Article> = ref({})
+  const article: Ref<Article | {}> = ref({})
   //md文件路径
   const path: Ref<Path> = ref({})
   watchEffect(() => {
     //当路由发生变化时，根据id获取文章，修改path的值
-    const id = route.params.id
+    const id = route.params.id as string
     getArticleList({ _id: id }).then((res) => {
       if (res.data) {
         article.value = res.data.list[0]
@@ -27,7 +27,7 @@ export function useGetInfoAboutArticle() {
       }
     })
     //增加访问量的请求
-    addArticleCount({ _id: id })
+    addArticleCount(id)
   })
   return { path, article, menu }
 }

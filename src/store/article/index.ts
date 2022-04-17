@@ -1,9 +1,9 @@
 import { Module } from 'vuex'
-import { IArticleType } from '@/store/article/types'
+import { IArticleState } from '@/store/article/types'
 import { getArticleList } from '@/service/article'
-import { IRootType } from '../types'
+import { IRootState } from '../types'
 //第一个泛型是指定当前模块的state的类型，第二个泛型是指定根store的类型
-const module: Module<IArticleType, IRootType> = {
+const module: Module<IArticleState, IRootState> = {
   namespaced: true,
   state() {
     return {

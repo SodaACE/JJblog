@@ -1,8 +1,8 @@
 import { Module } from 'vuex'
-import { ICategoryType } from './types'
+import { ICategoryState } from './types'
 import { getCategoryList } from '@/service/category'
-import { IRootType } from '../types'
-const module: Module<ICategoryType, IRootType> = {
+import { IRootState } from '../types'
+const module: Module<ICategoryState, IRootState> = {
   namespaced: true,
   state() {
     return {
