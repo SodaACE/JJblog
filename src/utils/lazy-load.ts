@@ -5,9 +5,11 @@ export default function (imgs: NodeList) {
     entries.forEach((entry) => {
       //如果出现在屏幕中，就赋值src发送请求，并且解除监听，避免重复操作
       if (entry.isIntersecting) {
-        const image: any = entry.target
-        const data_src = image.dataset.src
+        const image: HTMLImageElement =
+          entry.target as HTMLImageElement
+        const data_src = image.dataset.src ?? ''
         image.setAttribute('src', data_src)
+        image.removeAttribute('data-src')
         observer.unobserve(image)
       }
     })

@@ -4,6 +4,7 @@
 @import './base.less';
 @import './animate.css';
 .markdown-body {
+
   p {
     font-weight: 400;
   }
@@ -17,10 +18,13 @@
     }
   }
   img{
+    position: relative;
     border-radius: .5em;
     box-shadow: 4px 4px 5px rgba(0,0,0,.3);
     display: block;
     margin: 0 auto;
+    z-index: 111;
+    transition:all .5s;
   }
   strong {
     color: chocolate;

@@ -13,17 +13,16 @@ const { path, article, menu } = useGetInfoAboutArticle()
 //获取文章的字数和时间
 const { time, length, loaded } = useGetTimeAndLength()
 //控制是否要显示预览图片
-const { url, isShowImg, showImg } = useShowImg()
+const { isShowImg, showImg } = useShowImg()
 </script>
 <template>
   <div class="show-article">
     <div
       class="showImg"
       @click="isShowImg = false"
-      :style="{ left: isShowImg ? '0' : '100%' }"
-    >
-      <img :src="url" style="height: 90%" />
-    </div>
+      v-show="isShowImg"
+    />
+
     <div class="bg">
       <div class="title">{{ article.title }}</div>
       <div class="line">
@@ -65,14 +64,14 @@ const { url, isShowImg, showImg } = useShowImg()
             @showImg="showImg"
             @loaded="loaded"
             v-bind="path"
-          ></markdown>
+          />
         </div>
         <div class="comments">
-          <comments></comments>
+          <comments />
         </div>
       </div>
       <div class="fold-menu">
-        <fold-menu :menu="menu"></fold-menu>
+        <fold-menu :menu="menu" />
       </div>
     </div>
   </div>
@@ -127,13 +126,13 @@ const { url, isShowImg, showImg } = useShowImg()
     justify-content: center;
     align-items: center;
     top: 0;
-    left: 100%;
+    left: 0;
     bottom: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.2);
     z-index: 11;
     transition: all 0.5s;
-    overflow: scroll;
+    overflow: hidden;
   }
   .bg {
     display: flex;

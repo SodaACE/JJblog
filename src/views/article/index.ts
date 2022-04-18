@@ -51,14 +51,19 @@ export function useGetTimeAndLength() {
 
 export function useShowImg() {
   //浏览图片
-  const url = ref('')
   const isShowImg = ref(false)
   const showImg = (img: HTMLImageElement) => {
-    url.value = img.getAttribute('src') || ''
+    console.log(img.getBoundingClientRect())
+    const { top, left, width, height } = img.getBoundingClientRect()
+    const windowHeight = window.innerHeight
+    const windowWidth = window.innerWidth
+    const removeY = top - windowHeight / 2 + height / 2
+    const removeX = left - windowWidth / 2 + width / 2
+    console.log(`translateX(${removeX}px) translateY(${removeY}px)`)
+    img.style.transform = `translateX(${-removeX}px) translateY(${-removeY}px)`
     isShowImg.value = true
   }
   return {
-    url,
     isShowImg,
     showImg
   }
