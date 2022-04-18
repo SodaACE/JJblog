@@ -11,7 +11,7 @@ export function useGetInfoAboutArticle() {
   const menu = ref()
   const route = useRoute()
   //文章信息
-  const article: Ref<Article | {}> = ref({})
+  const article: Ref<Article> = ref({})
   //md文件路径
   const path: Ref<Path> = ref({})
   watchEffect(() => {

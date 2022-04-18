@@ -7,6 +7,7 @@ import {
   useGetTimeAndLength,
   useShowImg
 } from './'
+import { formatUtcString } from '@/utils/data-formate'
 //获取文章的信息，例如path（categoryName和title）以及article信息，menu目录
 const { path, article, menu } = useGetInfoAboutArticle()
 //获取文章的字数和时间
@@ -29,10 +30,8 @@ const { url, isShowImg, showImg } = useShowImg()
         <div>
           <el-icon><calendar /></el-icon>
           <span class="font">
-            发表于：{{
-              $filters.formatTime(article.createTime)
-            }}</span
-          >
+            发表于：{{ formatUtcString(article.createTime) }}
+          </span>
         </div>
         <div>
           <el-icon><folder-opened /></el-icon>
@@ -50,7 +49,7 @@ const { url, isShowImg, showImg } = useShowImg()
         </div>
         <div>
           <img
-            src="../../assets/icon/see.png"
+            src="@/assets/icon/see.png"
             alt=""
             style="height: 17px; width: 17px"
           />
@@ -79,9 +78,9 @@ const { url, isShowImg, showImg } = useShowImg()
   </div>
 </template>
 <style lang="less" scoped>
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1150px) {
   .main-content {
-    width: 80vw;
+    width: 95vw;
   }
   .font {
     font-size: 13px;
@@ -103,19 +102,7 @@ const { url, isShowImg, showImg } = useShowImg()
     display: none;
   }
 }
-@media screen and (max-width: 1150px) and (min-width: 601px) {
-  .main-content {
-    width: 80vw;
-  }
-  .title {
-    font-size: 40px;
-  }
-  .line {
-    div:not(:last-of-type) {
-      border-right: 2px solid white;
-    }
-  }
-}
+
 @media only screen and (min-width: 1151px) {
   .main-content {
     width: 800px;
