@@ -5,7 +5,12 @@ class menuItem {
   children?: menuItem[]
   type: number
   index: number
-  constructor(title: string, type: number, index: number, children: menuItem[] = []) {
+  constructor(
+    title: string,
+    type: number,
+    index: number,
+    children: menuItem[] = []
+  ) {
     this.title = title
     this.children = children
     this.type = type

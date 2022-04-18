@@ -15,10 +15,13 @@ const scrollToItem = (item: menuItem) => {
   const { index, type } = item
 
   //获取容器
-  const container: HTMLElement | null = document.querySelector(`.content`)
+  const container: HTMLElement | null =
+    document.querySelector(`.content`)
 
   //找到对应的元素
-  const target: HTMLElement | null = container!.querySelectorAll(`h${type}`)[index]
+  const target: HTMLElement | null = container!.querySelectorAll(
+    `h${type}`
+  )[index]
   window.scrollTo({
     top: target!.offsetTop + container!.offsetTop - 10, //相当于定位元素的垂直偏移量
     left: 0
@@ -34,7 +37,11 @@ const scrollToItem = (item: menuItem) => {
         <div class="title" v-html="item.title"></div>
       </template>
       <!-- 子目录内部渲染fold-item组件，递归组件的核心 -->
-      <fold-item v-for="i in item.children" :key="i.title" :item="i"></fold-item>
+      <fold-item
+        v-for="i in item.children"
+        :key="i.title"
+        :item="i"
+      ></fold-item>
     </el-sub-menu>
   </template>
   <!--  否则就渲染成menu-item-->

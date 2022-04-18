@@ -18,7 +18,11 @@ const categoryList = computed(() => store.state.category.categoryList)
         </div>
         <div class="menu">
           <el-menu class="el-menu-vertical-demo">
-            <el-sub-menu :index="index + ''" v-for="(item, index) in categoryList" :key="item._id">
+            <el-sub-menu
+              :index="index + ''"
+              v-for="(item, index) in categoryList"
+              :key="item._id"
+            >
               <template #title>
                 <el-icon><folder-opened /></el-icon>
                 <span>{{ item.categoryName }}</span>
@@ -38,7 +42,9 @@ const categoryList = computed(() => store.state.category.categoryList)
       </div>
       <div class="card-list">
         <my-info-card></my-info-card>
-        <website-info-card style="margin-top: 1rem"></website-info-card>
+        <website-info-card
+          style="margin-top: 1rem"
+        ></website-info-card>
       </div>
     </div>
   </div>

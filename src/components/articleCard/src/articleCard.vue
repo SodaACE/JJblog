@@ -19,7 +19,10 @@ defineProps({
       :lazy="index > 1"
       fit="cover"
       class="image"
-      :src="'https://tenapi.cn/acg?time=' + Math.floor(Math.random() * 100)"
+      :src="
+        'https://tenapi.cn/acg?time=' +
+        Math.floor(Math.random() * 100)
+      "
     />
     <div class="title">{{ item.title }}</div>
     <div class="article-info">

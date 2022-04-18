@@ -23,3 +23,8 @@ export function addArticleCount(id: string) {
     url: `/article/addCount/${id}`
   })
 }
+
+//TODO:模糊查询文章接口
+export function getArticleListWithoutShowLoading() {
+  console.log(1)
+}

@@ -25,7 +25,9 @@ const status = computed(() => {
     <div class="detail">
       <div class="name">{{ item.name }}{{ status }}</div>
       <div class="createTime">
-        <div class="time">{{ $filters.formatTime(item.createTIme) }}</div>
+        <div class="time">
+          {{ $filters.formatTime(item.createTIme) }}
+        </div>
         <div class="reply" @click="clickReply(item.name)">回复</div>
       </div>
       <p class="content">{{ item.comment }}</p>

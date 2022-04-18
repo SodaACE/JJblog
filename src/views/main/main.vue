@@ -51,7 +51,9 @@ const store = useStore()
     <div class="content" id="content">
       <div class="article-list">
         <div class="bread-crumbs">
-          <div class="bread-title">当前分类：{{ store.state.currentCategory }}</div>
+          <div class="bread-title">
+            当前分类：{{ store.state.currentCategory }}
+          </div>
         </div>
 
         <div
@@ -66,7 +68,11 @@ const store = useStore()
       </div>
       <div class="card-list">
         <my-info-card />
-        <classify-card class="hide-in-mobile" @categoryClick="categoryClick" :list="categoryList" />
+        <classify-card
+          class="hide-in-mobile"
+          @categoryClick="categoryClick"
+          :list="categoryList"
+        />
         <website-info-card class="hide-in-mobile" />
       </div>
     </div>
@@ -74,7 +80,7 @@ const store = useStore()
 </template>
 
 <style lang="less" scoped>
-@media only screen and (max-width: 1150px) {
+@media only screen and (max-width: 767px) {
   .top {
     .title {
       font-size: 1.5rem;
@@ -83,22 +89,12 @@ const store = useStore()
       font-size: 1rem;
     }
   }
-
-  .content {
-    flex-direction: column-reverse;
-    align-items: center;
-  }
-  .card-list {
-    margin-left: 0;
-  }
-}
-@media only screen and (max-width: 600px) {
   //右侧卡片列表
   .card-list {
-    width: 97vw;
+    width: 94vw;
   }
   .article-list {
-    width: 97vw;
+    width: 94vw;
     .article-card {
       height: 33vh;
       min-height: 250px;
@@ -107,36 +103,32 @@ const store = useStore()
   .hide-in-mobile {
     display: none;
   }
-}
-@media only screen and (max-width: 1150px) and (min-width: 601px) {
-  //右侧卡片列表
+  .content {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
   .card-list {
-    width: 80vw;
-  }
-  .article-list {
-    width: 80vw;
-    .article-card {
-      height: 33vh;
-      min-height: 300px;
-    }
+    margin-left: 0;
   }
 }
-@media only screen and (min-width: 1151px) {
+
+@media only screen and (min-width: 768px) {
   //右侧卡片列表
   .card-list {
     width: 300px;
+    min-width: 250px;
     margin-left: 20px;
   }
   .article-list {
     width: 800px;
     .article-card {
       height: 33vh;
-      min-height: 320px;
+      min-height: 300px;
     }
   }
   .top {
     .title {
-      font-size: 2.5rem;
+      font-size: 2rem;
     }
     .sentence {
       font-size: 1.5rem;
@@ -199,9 +191,9 @@ const store = useStore()
   }
 
   .content {
-    width: 100%;
+    width: 95%;
     display: flex;
-
+    margin: 0 auto;
     .article-list {
       .article-card {
         margin-bottom: 1rem;
@@ -219,9 +211,8 @@ const store = useStore()
     }
 
     .card-list {
-      margin-top: 1rem;
-      div:not(:last-of-type) {
-        margin-bottom: 1rem;
+      div {
+        margin-top: 1rem;
       }
     }
   }

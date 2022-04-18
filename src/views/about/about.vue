@@ -69,13 +69,17 @@ const arr = [
           <p>了解uniapp跨端开发</p>
         </div>
       </div>
-      <div style="display: flex; flex-direction: column; width: 890px">
+      <div
+        style="display: flex; flex-direction: column; width: 890px"
+      >
         <h4 style="margin-right: 720px">项目经历</h4>
         <div class="project">
           <div class="title">个人博客系统</div>
           <div>
             页面地址：
-            <a href="https://www.jzsp66.xyz">https://www.jzsp66.xyz</a>
+            <a href="https://www.jzsp66.xyz"
+              >https://www.jzsp66.xyz</a
+            >
           </div>
           <p>项目介绍：</p>
           <p style="line-height: 1.4; font-weight: 500">
@@ -83,9 +87,16 @@ const arr = [
             目前可以通过个人博客网站查看文章数据，后台已经实现文章管理模块和分类管理模块以及文件上传模块，共计10个接口，功能仍在积极拓展中。
           </p>
           <p>项目亮点：</p>
-          <p>1：前端使用vue3的composition API结合typescript类型声明进行开发</p>
-          <p>2：后台开发时封装page-content组件并在页面之间进行复用，传入配置对象可以快速构建页面</p>
-          <p>3：使用IntersectionObserve进行懒加载，避免一次性发送全部请求</p>
+          <p>
+            1：前端使用vue3的composition
+            API结合typescript类型声明进行开发
+          </p>
+          <p>
+            2：后台开发时封装page-content组件并在页面之间进行复用，传入配置对象可以快速构建页面
+          </p>
+          <p>
+            3：使用IntersectionObserve进行懒加载，避免一次性发送全部请求
+          </p>
           <p>4：node编写后端，配合中间件进行开发</p>
           <p>5：个人博客的大部分页面对手机端进行了适配</p>
         </div>
@@ -93,14 +104,18 @@ const arr = [
           <div class="title">富家乡村网上纪念馆</div>
           <div>
             页面地址：
-            <a href="http://www.fjxiangcun.com/">http://www.fjxiangcun.com/</a>
+            <a href="http://www.fjxiangcun.com/"
+              >http://www.fjxiangcun.com/</a
+            >
           </div>
           <p style="line-height: 1.4; font-weight: 500">
             团队项目，开发周期为1个月，个人负责前台与后台部分。前台与后台用vue2全家桶+element-ui开发，通过axios进行前后端交互。前台作为商用网站，有10+个页面，经过不断地优化，即将投入使用。后台包括用户管理，角色管理，墓碑信息管理等模块。
           </p>
           <p>项目亮点：</p>
           <p>1：后台使用动态路由进行权限管理</p>
-          <p>2：使用vuex对数据进行统一管理，简化了繁琐的父子组件通信</p>
+          <p>
+            2：使用vuex对数据进行统一管理，简化了繁琐的父子组件通信
+          </p>
         </div>
       </div>
     </div>
@@ -145,9 +160,10 @@ const arr = [
         font-size: 16px;
         padding-bottom: 18px;
         border-bottom: 1px dashed #fff;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-          'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-          'Segoe UI Symbol', 'Noto Color Emoji';
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+          'Liberation Sans', sans-serif, 'Apple Color Emoji',
+          'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
         font-weight: 400;
         line-height: 1.5;
         text-align: left;
@@ -218,9 +234,10 @@ const arr = [
     .about-skill {
       margin-top: 62px;
       p {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-          'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-          'Segoe UI Symbol', 'Noto Color Emoji';
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+          'Liberation Sans', sans-serif, 'Apple Color Emoji',
+          'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
         font-size: 17px;
         font-weight: 600;
       }

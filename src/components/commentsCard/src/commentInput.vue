@@ -6,7 +6,8 @@ import { getqqInfo } from '../../../service/comments'
 
 const content = ref('')
 const info = ref({
-  imgurl: 'https://gravatar.loli.net/avatar/cc2c230b42f7823fe819f40d7e06532a?d=mp&v=1.4.16',
+  imgurl:
+    'https://gravatar.loli.net/avatar/cc2c230b42f7823fe819f40d7e06532a?d=mp&v=1.4.16',
   name: '',
   email: '',
   status: ''
@@ -27,14 +28,32 @@ const showEmojis = ref(false)
 <template>
   <div class="comment">
     <div class="info-bar">
-      <input type="text" placeholder="昵称 ( QQ )" v-model="info.name" @blur="findInfoByQQ" />
+      <input
+        type="text"
+        placeholder="昵称 ( QQ )"
+        v-model="info.name"
+        @blur="findInfoByQQ"
+      />
       <input type="text" placeholder="邮箱" :value="info.email" />
-      <input type="text" placeholder="心情，5字以内哦~🥵" maxlength="5" v-model="info.status" />
+      <input
+        type="text"
+        placeholder="心情，5字以内哦~🥵"
+        maxlength="5"
+        v-model="info.status"
+      />
     </div>
-    <textarea class="comment-input" v-model="content" placeholder="留下你的足迹..." />
+    <textarea
+      class="comment-input"
+      v-model="content"
+      placeholder="留下你的足迹..."
+    />
     <div class="foot-bar">
       <div class="button-content">
-        <span class="icon" @click="showEmojis = !showEmojis" :class="{ active: showEmojis }">
+        <span
+          class="icon"
+          @click="showEmojis = !showEmojis"
+          :class="{ active: showEmojis }"
+        >
           <svg
             viewBox="0 0 1024 1024"
             version="1.1"
@@ -64,7 +83,11 @@ const showEmojis = ref(false)
         <el-button style="color: #b2b2b5">提交</el-button>
       </div>
       <div class="emojis" v-show="showEmojis">
-        <div v-for="item in emojis" :key="item" @click="content += item">
+        <div
+          v-for="item in emojis"
+          :key="item"
+          @click="content += item"
+        >
           {{ item }}
         </div>
       </div>

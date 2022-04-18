@@ -1,7 +1,9 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 interface interceptor {
-  requestOnFulfilled?: (config: AxiosRequestConfig) => AxiosRequestConfig
+  requestOnFulfilled?: (
+    config: AxiosRequestConfig
+  ) => AxiosRequestConfig
   requestOnRejected?: (err: any) => any
   responseOnFulfilled?: (config: AxiosResponse) => AxiosResponse
   responseOnRejected?: (err: any) => any

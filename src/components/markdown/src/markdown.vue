@@ -24,6 +24,10 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div style="padding: 4px" class="markdown-body" v-html="content"></div>
+  <div
+    style="padding: 4px"
+    class="markdown-body"
+    v-html="content"
+  ></div>
 </template>
 <style lang="less" scoped></style>

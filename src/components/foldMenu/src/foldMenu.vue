@@ -11,7 +11,11 @@ defineProps({
 <template>
   <div class="menu-title">目录</div>
   <el-menu>
-    <fold-item v-for="item in menu" :key="item.title" :item="item"></fold-item>
+    <fold-item
+      v-for="item in menu"
+      :key="item.title"
+      :item="item"
+    ></fold-item>
   </el-menu>
 </template>
 <style lang="less" scoped>

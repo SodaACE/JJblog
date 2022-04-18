@@ -16,7 +16,10 @@ export function useMarkdownIt(mdFile: string) {
         try {
           return (
             '<pre class="hljs"><code>' +
-            hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+            hljs.highlight(str, {
+              language: lang,
+              ignoreIllegals: true
+            }).value +
             '</code></pre>'
           )
         } catch (__) {
@@ -24,7 +27,11 @@ export function useMarkdownIt(mdFile: string) {
         }
       }
 
-      return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>'
+      return (
+        '<pre class="hljs"><code>' +
+        md.utils.escapeHtml(str) +
+        '</code></pre>'
+      )
     }
   })
   const str: string = md.render(mdFile)
@@ -32,15 +39,16 @@ export function useMarkdownIt(mdFile: string) {
   return { str, menu }
 }
 
+// TODO: 是否要解决文章放在content中导致传输内容太大，效率低的情况
+
 // 根绝categoryName和title获取md文件，转成html字符串之后，懒加载内部的所有图片，并且收集所有的title信息（为了制作目录）
 export function useMarkdown(props: any, emit: any): Ref<string> {
   const content = ref('')
   watchEffect(() => {
-    //如果传入了categoryName和title的话，就去发送请求获取md文件
-    if (props.title)
-      getArticleList({
-        title: props.title
-      }).then((res) => {
+    //根据title获取文章信息
+    if (props.title) {
+      getArticleList({ title: props.title }).then((res) => {
+        // 新版后端的文章内容保存在content中
         const md = res.data?.list[0].content as string
         //使用hook，传入md字符串，获取转换后的html字符串
         const useMarkdownItRes = useMarkdownIt(md)
@@ -50,13 +58,20 @@ export function useMarkdown(props: any, emit: any): Ref<string> {
 
         //在dom挂载完成后获取所有img元素进行懒加载
         nextTick(() => {
-          const images = document.getElementsByClassName('md')[0].querySelectorAll('img')
-          images.forEach((item) => (item.onclick = () => emit('showImg', item)))
+          const images = document
+            .getElementsByClassName('markdown-body')[0]
+            .querySelectorAll('img')
+          images.forEach((item) => {
+            item.dataset.src = item.src
+            item.src = ''
+            item.onclick = () => emit('showImg', item)
+          })
           lazyLoad(images)
         })
         //发射加载成功事件，并且把md文件大小发送给父组件
         emit('loaded', md.length)
       })
+    }
   })
 
   return content

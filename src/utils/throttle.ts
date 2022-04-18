@@ -13,7 +13,8 @@ export default function throttle(
     //计算当前时间
     const nowTime = new Date().getTime()
     //这是初始化，判断需不需要执行第一次请求。我们默认oldTime是0，第一次请求是会立即执行的
-    if (oldTime === 0 && !options.leading) oldTime = new Date().getTime()
+    if (oldTime === 0 && !options.leading)
+      oldTime = new Date().getTime()
 
     //如果时间间隔大于delay，就执行，并且重置oldTime
     if (nowTime - oldTime > delay) {

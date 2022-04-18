@@ -2,7 +2,11 @@
 import foldMenu from '@/components/foldMenu'
 import markdown from '@/components/markdown'
 import comments from '@/components/commentsCard'
-import { useGetInfoAboutArticle, useGetTimeAndLength, useShowImg } from './'
+import {
+  useGetInfoAboutArticle,
+  useGetTimeAndLength,
+  useShowImg
+} from './'
 //获取文章的信息，例如path（categoryName和title）以及article信息，menu目录
 const { path, article, menu } = useGetInfoAboutArticle()
 //获取文章的字数和时间
@@ -12,7 +16,11 @@ const { url, isShowImg, showImg } = useShowImg()
 </script>
 <template>
   <div class="show-article">
-    <div class="showImg" @click="isShowImg = false" :style="{ left: isShowImg ? '0' : '100%' }">
+    <div
+      class="showImg"
+      @click="isShowImg = false"
+      :style="{ left: isShowImg ? '0' : '100%' }"
+    >
       <img :src="url" style="height: 90%" />
     </div>
     <div class="bg">
@@ -20,7 +28,11 @@ const { url, isShowImg, showImg } = useShowImg()
       <div class="line">
         <div>
           <el-icon><calendar /></el-icon>
-          <span class="font"> 发表于：{{ $filters.formatTime(article.createTime) }}</span>
+          <span class="font">
+            发表于：{{
+              $filters.formatTime(article.createTime)
+            }}</span
+          >
         </div>
         <div>
           <el-icon><folder-opened /></el-icon>
@@ -37,7 +49,11 @@ const { url, isShowImg, showImg } = useShowImg()
           <span class="font">阅读时长：{{ time }}分钟</span>
         </div>
         <div>
-          <img src="../../assets/icon/see.png" alt="" style="height: 17px; width: 17px" />
+          <img
+            src="../../assets/icon/see.png"
+            alt=""
+            style="height: 17px; width: 17px"
+          />
           <span class="font">访问量：{{ article.count }}</span>
         </div>
       </div>

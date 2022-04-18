@@ -24,7 +24,9 @@ export function useGetMainData() {
   //文章列表
   const articleList = computed(() => store.state.article.articleList)
   //标签列表
-  const categoryList = computed(() => store.state.category.categoryList)
+  const categoryList = computed(
+    () => store.state.category.categoryList
+  )
 
   //选择分类，获取对应分类的文章
   const categoryClick = (item: any) => {
