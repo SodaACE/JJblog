@@ -19,14 +19,15 @@ const scrollToItem = (item: menuItem) => {
     document.querySelector(`.content`)
 
   //找到对应的元素
-  const target: HTMLElement | null = container!.querySelectorAll(
-    `h${type}`
-  )[index]
-  window.scrollTo({
-    top: target!.offsetTop + container!.offsetTop - 10, //相当于定位元素的垂直偏移量
-    left: 0
-    // behavior: 'smooth'
-  })
+  const target: HTMLElement | null = container
+    ? container.querySelectorAll<HTMLElement>(`h${type}`)[index]
+    : null
+  if (target && container)
+    window.scrollTo({
+      top: target.offsetTop + container.offsetTop - 10, //相当于定位元素的垂直偏移量
+      left: 0
+      // behavior: 'smooth'
+    })
 }
 </script>
 <template>

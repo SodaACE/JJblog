@@ -1,9 +1,11 @@
 <script lang="ts" setup>
+import { menuItem } from '..'
 import foldItem from './foldItem.vue'
+import { PropType } from 'vue'
 // eslint-disable-next-line no-undef
 defineProps({
   menu: {
-    type: Array,
+    type: Array as PropType<menuItem[]>,
     default: () => []
   }
 })
@@ -19,7 +21,7 @@ defineProps({
   </el-menu>
 </template>
 <style lang="less" scoped>
-:deep(.el-menu) {
+::v-deep.el-menu {
   border: none;
 }
 .menu-title {
