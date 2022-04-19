@@ -26,9 +26,9 @@ onBeforeUpdate(() => {
 onUpdated(() => {
   observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
+      if (entry.isIntersecting && observer) {
         entry.target.className = 'fadeIn animate article-card'
-        observer!.unobserve(entry.target)
+        observer.unobserve(entry.target)
       }
     })
   })

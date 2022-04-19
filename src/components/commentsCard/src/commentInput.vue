@@ -13,7 +13,7 @@ const info = ref({
   status: ''
 })
 
-const findInfoByQQ = debounce(function (e) {
+const findInfoByQQ = debounce(function () {
   getqqInfo(info.value.name).then((res) => {
     if (res.data.code === 200) {
       info.value.name = res.data.name

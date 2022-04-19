@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
+import { formatUtcString } from '@/utils/data-formate'
 import commentsListItem from './commentsListItem.vue'
 import commentInput from './commentInput.vue'
 // eslint-disable-next-line no-undef
@@ -11,6 +12,7 @@ const props = defineProps({
 })
 const showReply = ref(false)
 
+//TODO:完善评论逻辑
 const clickReply = (name: string) => {
   showReply.value = !showReply.value
 }
@@ -26,7 +28,7 @@ const status = computed(() => {
       <div class="name">{{ item.name }}{{ status }}</div>
       <div class="createTime">
         <div class="time">
-          {{ $filters.formatTime(item.createTIme) }}
+          {{ formatUtcString(item.createTIme) }}
         </div>
         <div class="reply" @click="clickReply(item.name)">回复</div>
       </div>

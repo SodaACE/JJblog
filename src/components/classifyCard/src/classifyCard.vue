@@ -1,15 +1,16 @@
 <script lang="ts" setup>
 import { useStore } from '@/store'
 import { defineProps, defineEmits, PropType } from 'vue'
+import { Category } from '@/store/category/types'
 
 defineProps({
-  list: Array
+  list: Array as PropType<Category[]>
 })
 const emits = defineEmits(['categoryClick'])
 
 const store = useStore()
 //点击分类的时候向父组件发射事件，并且修改store中的状态
-const itemClick = (category) => {
+const itemClick = (category: Category) => {
   emits('categoryClick', category)
   store.commit('changeCurrentCategory', category.categoryName)
 }

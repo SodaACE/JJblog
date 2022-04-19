@@ -1,5 +1,3 @@
-import { Timer } from '@element-plus/icons-vue'
-
 const delay = 500
 export default function throttle(
   fn: (...args: any) => any,
