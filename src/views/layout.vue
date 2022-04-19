@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import loadingBox from '@/components/loadingBox'
 import navHeader from '@/components/nav-header'
 </script>
 <template>

@@ -17,11 +17,9 @@ const { isShowImg, showImg } = useShowImg()
 </script>
 <template>
   <div class="show-article">
-    <div
-      class="showImg"
-      @click="isShowImg = false"
-      v-show="isShowImg"
-    />
+    <transition name="wjj">
+      <div class="showImg" v-show="isShowImg" />
+    </transition>
 
     <div class="bg">
       <div class="title">{{ article.title }}</div>
@@ -129,8 +127,8 @@ const { isShowImg, showImg } = useShowImg()
     left: 0;
     bottom: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 11;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 12;
     transition: all 0.5s;
     overflow: hidden;
   }
@@ -198,5 +196,15 @@ const { isShowImg, showImg } = useShowImg()
       background-repeat: repeat-x;
     }
   }
+}
+
+.wjj-enter-from,
+.wjj-leave-to {
+  opacity: 0;
+}
+
+.wjj-enter-active,
+.wjj-leave-active {
+  transition: all 0.5s;
 }
 </style>
