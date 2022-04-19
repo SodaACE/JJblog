@@ -19,9 +19,10 @@ export function getArticleList(data: GetArticlePayload | null) {
 
 //文章增加访客
 export function addArticleCount(id: string) {
-  return request_util.put({
-    url: `/article/addCount/${id}`
-  })
+  if (id)
+    return request_util.put({
+      url: `/article/addCount/${id}`
+    })
 }
 
 //TODO:模糊查询文章接口

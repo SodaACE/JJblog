@@ -1,39 +1,33 @@
 import { useRoute } from 'vue-router'
 import { ref, watchEffect, Ref } from 'vue'
 import { addArticleCount, getArticleList } from '@/service/article'
+import { getCommentList } from '@/service/comments'
 import { Article } from '@/store/article/types'
 import { onMounted, onUnmounted, onUpdated } from 'vue'
+import { Comment } from '@/store/comment/types'
 
-interface Path {
-  title?: string
-  categoryName?: string
-}
 export function useGetInfoAboutArticle() {
   //获取文章标题菜单
   const menu = ref()
   const route = useRoute()
   //文章信息
   const article: Ref<Article> = ref({})
-  //md文件路径
-  const path: Ref<Path> = ref({})
-  watchEffect(() => {
+  // 评论信息
+  const commentList: Ref<Comment[] | undefined> = ref()
+
+  watchEffect(async () => {
     //当路由发生变化时，根据id获取文章，修改path的值
     const id = route.params.id as string
-    getArticleList({ _id: id }).then((res) => {
-      if (res.data) {
-        article.value = res.data.list[0]
-        path.value = {
-          categoryName: res.data.list[0].categoryName,
-          title: res.data.list[0].title
-        }
-      }
-    })
-    if (id) {
-      //增加访问量的请求
-      addArticleCount(id)
+    const res = await getArticleList({ _id: id })
+    if (res.data) {
+      article.value = res.data.list[0]
     }
+    //增加访问量的请求
+    addArticleCount(id)
+    const res2 = await getCommentList({ title: article.value.title })
+    commentList.value = res2.data?.list
   })
-  return { path, article, menu }
+  return { article, menu, commentList }
 }
 
 export function useGetTimeAndLength() {

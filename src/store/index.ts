@@ -1,6 +1,7 @@
 import { createStore, useStore } from 'vuex'
 import articleModule from './article/index'
 import categoryModule from './category/index'
+import commentModule from './comment/index'
 import { IStoreType, IRootState } from './types'
 
 const store = createStore<IRootState>({
@@ -26,7 +27,8 @@ const store = createStore<IRootState>({
   getters: {},
   modules: {
     article: articleModule,
-    category: categoryModule
+    category: categoryModule,
+    comment: commentModule
   }
 })
 function myUseStore() {

@@ -17,6 +17,7 @@ const module: Module<IArticleState, IRootState> = {
       const res = await getArticleList(payload)
       commit('changeArticleList', res.data?.list)
       commit('changeAllcount', res.data?.allCount)
+      return res
     }
   },
   mutations: {

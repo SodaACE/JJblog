@@ -1,5 +1,6 @@
 import { IArticleState } from '@/store/article/types'
 import { ICategoryState } from '@/store/category/types'
+import { ICommentState } from './comment/types'
 
 export interface IRootState {
   currentCategory: string
@@ -10,5 +11,6 @@ export interface IRootState {
 interface IRootWithModule {
   article: IArticleState
   category: ICategoryState
+  comment: ICommentState
 }
 export type IStoreType = IRootState & IRootWithModule

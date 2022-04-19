@@ -1,12 +1,13 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, PropType } from 'vue'
 import { formatUtcString } from '@/utils/data-formate'
 import commentsListItem from './commentsListItem.vue'
 import commentInput from './commentInput.vue'
+import { Comment } from '@/store/comment/types'
 // eslint-disable-next-line no-undef
 const props = defineProps({
   item: {
-    type: Object,
+    type: Object as PropType<Comment>,
     default: () => ({})
   }
 })
@@ -23,32 +24,32 @@ const status = computed(() => {
 </script>
 <template>
   <div class="comments-list-item">
-    <img class="avatar" :src="item.imgurl" alt="" />
+    <img class="avatar" :src="item.avatar" alt="" />
     <div class="detail">
       <div class="name">{{ item.name }}{{ status }}</div>
       <div class="createTime">
         <div class="time">
-          {{ formatUtcString(item.createTIme) }}
+          {{ formatUtcString(item.createTime) }}
         </div>
         <div class="reply" @click="clickReply(item.name)">回复</div>
       </div>
-      <p class="content">{{ item.comment }}</p>
+      <p class="content" v-html="item.content"></p>
       <transition name="wjj">
-        <comment-input v-show="showReply"></comment-input>
+        <comment-input v-show="showReply" />
       </transition>
       <div class="replyList">
         <comments-list-item
           v-for="i in item.replyList"
-          :key="i.createTime"
+          :key="i._id"
           :item="i"
-        ></comments-list-item>
+        />
       </div>
     </div>
   </div>
 </template>
 <style lang="less" scoped>
 .comments-list-item {
-  margin: 30px 0;
+  margin: 1.3rem 0;
   display: flex;
   .avatar {
     width: 3.25rem;
@@ -64,6 +65,10 @@ const status = computed(() => {
     .name {
       line-height: 1.5;
       color: rgb(134, 140, 144);
+      cursor: pointer;
+      &:hover {
+        color: red;
+      }
     }
     .createTime {
       margin-top: 5px;
@@ -84,6 +89,9 @@ const status = computed(() => {
     }
     &:hover .reply {
       display: block;
+    }
+    & :deep(a) {
+      color: rgb(255, 152, 0);
     }
   }
 }

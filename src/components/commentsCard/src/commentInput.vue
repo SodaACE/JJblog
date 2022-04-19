@@ -1,29 +1,10 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { emojis } from '@/components/commentsCard/src/emoji'
-import { debounce } from '../../../utils/throttle'
-import { getqqInfo } from '../../../service/comments'
-
-const content = ref('')
-const info = ref({
-  imgurl:
-    'https://gravatar.loli.net/avatar/cc2c230b42f7823fe819f40d7e06532a?d=mp&v=1.4.16',
-  name: '',
-  email: '',
-  status: ''
-})
-
-const findInfoByQQ = debounce(function () {
-  getqqInfo(info.value.name).then((res) => {
-    if (res.data.code === 200) {
-      info.value.name = res.data.name
-      info.value.email = res.data.mail
-      info.value.imgurl = res.data.imgurl
-    }
-  })
-}, 200)
+import { ref } from 'vue'
+import { useCommentInfo } from '../index'
 
 const showEmojis = ref(false)
+const { content, info, findInfoByQQ } = useCommentInfo()
 </script>
 <template>
   <div class="comment">
@@ -104,6 +85,10 @@ const showEmojis = ref(false)
   }
 }
 
+input,
+textarea {
+  font-size: 0.9rem;
+}
 .comment {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   padding: 10px;

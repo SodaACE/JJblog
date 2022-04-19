@@ -6,10 +6,6 @@ export default defineComponent({
   name: 'App',
   emits: ['loaded', 'showImg', 'titleMenu'],
   props: {
-    categoryName: {
-      type: String,
-      default: ''
-    },
     title: {
       type: String,
       default: ''

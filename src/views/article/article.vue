@@ -9,7 +9,7 @@ import {
 } from './'
 import { formatUtcString } from '@/utils/data-formate'
 //获取文章的信息，例如path（categoryName和title）以及article信息，menu目录
-const { path, article, menu } = useGetInfoAboutArticle()
+const { commentList, article, menu } = useGetInfoAboutArticle()
 //获取文章的字数和时间
 const { time, length, loaded } = useGetTimeAndLength()
 //控制是否要显示预览图片
@@ -61,11 +61,20 @@ const { isShowImg, showImg } = useShowImg()
             @titleMenu="(data) => (menu = data)"
             @showImg="showImg"
             @loaded="loaded"
-            v-bind="path"
+            v-bind="article"
           />
         </div>
+        <p
+          style="
+            border-left: 5px solid red;
+            padding: 5px 0;
+            padding-left: 10px;
+          "
+        >
+          发表评论
+        </p>
         <div class="comments">
-          <comments />
+          <comments :commentList="commentList" />
         </div>
       </div>
       <div class="fold-menu">
@@ -168,6 +177,7 @@ const { isShowImg, showImg } = useShowImg()
     display: flex;
     justify-content: center;
     .md {
+      background-color: white;
       padding: 20px;
       margin-top: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -175,6 +185,7 @@ const { isShowImg, showImg } = useShowImg()
       margin-bottom: 20px;
     }
     .fold-menu {
+      background-color: white;
       position: sticky;
       top: 10px;
       align-self: flex-start;
