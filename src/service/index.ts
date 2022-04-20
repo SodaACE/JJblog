@@ -16,7 +16,7 @@ const request_util = new wjjRequest({
       clearTimeout(timer)
       timer = setTimeout(() => {
         isLoading.value = false
-      }, 1000)
+      }, 500)
       return res.data
     }
   },
@@ -29,6 +29,11 @@ export interface GetOperationsRes<T> {
     allCount: number
     list: T[]
   }
+  message?: string
+}
+export interface OtherOperationsRes<T> {
+  status: boolean
+  data?: T
   message?: string
 }
 export { request_util, isLoading }

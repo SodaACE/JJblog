@@ -24,8 +24,11 @@ export function useGetInfoAboutArticle() {
     }
     //增加访问量的请求
     addArticleCount(id)
-    const res2 = await getCommentList({ title: article.value.title })
-    commentList.value = res2.data?.list
+    getCommentList({ title: article.value.title, type: '1' }).then(
+      (res) => {
+        commentList.value = res.data?.list
+      }
+    )
   })
   return { article, menu, commentList }
 }

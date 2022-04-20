@@ -1,10 +1,42 @@
 <script lang="ts" setup>
 import { emojis } from '@/components/commentsCard/src/emoji'
-import { ref } from 'vue'
+import { ref, defineProps, PropType, defineEmits } from 'vue'
 import { useCommentInfo } from '../index'
-
+import { Comment } from '@/store/comment/types'
+import { createComment } from '@/service/comments'
+const emit = defineEmits(['closeReply'])
+const props = defineProps({
+  item: {
+    type: Object as PropType<Comment | undefined>,
+    default: () => undefined
+  },
+  articleTitle: {
+    type: String,
+    default: ''
+  }
+})
 const showEmojis = ref(false)
 const { content, info, findInfoByQQ } = useCommentInfo()
+const submit = async () => {
+  // 如果传入了item，那么就是回复，否则就是评论
+  const metadata: Comment = props.item
+    ? {
+        type: '0',
+        replyId: props.item._id,
+        parent: props.item.parent,
+        content: content.value,
+        title: props.articleTitle,
+        ...info
+      }
+    : {
+        type: '1',
+        content: content.value,
+        title: props.articleTitle,
+        ...info
+      }
+  const res = await createComment(metadata)
+  emit('closeReply')
+}
 </script>
 <template>
   <div class="comment">
@@ -61,7 +93,9 @@ const { content, info, findInfoByQQ } = useCommentInfo()
             ></path>
           </svg>
         </span>
-        <el-button style="color: #b2b2b5">提交</el-button>
+        <el-button style="color: #b2b2b5" @click="submit">
+          提交
+        </el-button>
       </div>
       <div class="emojis" v-show="showEmojis">
         <div

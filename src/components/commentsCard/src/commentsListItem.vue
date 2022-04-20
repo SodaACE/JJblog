@@ -35,10 +35,16 @@ const status = computed(() => {
       </div>
       <p class="content" v-html="item.content"></p>
       <transition name="wjj">
-        <comment-input v-show="showReply" />
+        <comment-input
+          v-show="showReply"
+          :item="item"
+          @closeReply="() => (showReply = false)"
+          v-bind="$attrs"
+        />
       </transition>
       <div class="replyList">
         <comments-list-item
+          v-bind="$attrs"
           v-for="i in item.replyList"
           :key="i._id"
           :item="i"

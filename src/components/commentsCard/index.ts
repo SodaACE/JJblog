@@ -8,7 +8,7 @@ export function useCommentInfo() {
   //评论内容
   const content = ref('')
   const info = reactive({
-    imgurl:
+    avatar:
       'https://gravatar.loli.net/avatar/cc2c230b42f7823fe819f40d7e06532a?d=mp&v=1.4.16',
     name: '',
     email: '',
@@ -20,8 +20,7 @@ export function useCommentInfo() {
       if (res.data.code === 200) {
         info.name = res.data.name
         info.email = res.data.mail
-        info.imgurl = res.data.imgurl
-        console.log(info)
+        info.avatar = res.data.imgurl
       }
     })
   }, 200)

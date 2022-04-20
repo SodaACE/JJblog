@@ -74,7 +74,10 @@ const { isShowImg, showImg } = useShowImg()
           发表评论
         </p>
         <div class="comments">
-          <comments :commentList="commentList" />
+          <comments
+            :commentList="commentList"
+            :articleTitle="article.title"
+          />
         </div>
       </div>
       <div class="fold-menu">
