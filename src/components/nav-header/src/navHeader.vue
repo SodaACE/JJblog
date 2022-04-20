@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/store'
-import debounce from '@/utils/debounce'
+import { debounce_request } from '@/utils/debounce'
 //TODO:查找文章接口
 import { getArticleListWithoutShowLoading } from '@/service/article'
 const router = useRouter()
@@ -24,7 +24,10 @@ const articleList = ref([])
 //是否显示输入框
 const showInput = ref(false)
 //防抖函数
-const debounce_getArticle = debounce(getArticleListWithoutShowLoading)
+const debounce_getArticle = debounce_request(
+  getArticleListWithoutShowLoading,
+  200
+)
 //是否显示抽屉
 const showMobileDrawer = ref(false)
 //导航菜单点击
@@ -53,14 +56,12 @@ watch(
   async () => {
     //如果变化且有值，就发送请求
     input.value
-      ? debounce_getArticle({ title: input.value }).then(
-          (res: any) => {
-            //找到了就修改list，否则就置空
-            articleList.value = res.data.status
-              ? res.data.data.list
-              : []
-          }
-        )
+      ? debounce_getArticle(input.value).then((res: any) => {
+          //找到了就修改list，否则就置空
+          articleList.value = res.data.status
+            ? res.data.data.list
+            : []
+        })
       : (articleList.value = [])
   }
 )

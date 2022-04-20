@@ -67,7 +67,7 @@ const submit = async () => {
     <div class="info-bar">
       <input
         type="text"
-        placeholder="昵称 ( QQ )"
+        placeholder="(输入QQ获取头像和名称)"
         v-model="info.name"
         @blur="findInfoByQQ"
       />

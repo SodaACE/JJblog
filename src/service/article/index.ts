@@ -1,7 +1,7 @@
 import { request_util } from '@/service'
 import { Article } from '@/store/article/types'
 import { GetOperationsRes } from './../index'
-
+import axios from 'axios'
 export interface GetArticlePayload {
   currentPage?: number
   pageSize?: number
@@ -26,6 +26,8 @@ export function addArticleCount(id: string) {
 }
 
 //TODO:模糊查询文章接口
-export function getArticleListWithoutShowLoading() {
-  console.log(1)
+export function getArticleListWithoutShowLoading(title: string) {
+  return axios.get<GetOperationsRes<Article>>(
+    process.env.VUE_APP_BASE_URL + 'article?title=' + title
+  )
 }

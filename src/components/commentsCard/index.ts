@@ -1,6 +1,6 @@
 import commentsCard from './src/commentsCard.vue'
 import { debounce } from '@/utils/throttle'
-import { ref, reactive, watchEffect } from 'vue'
+import { ref, reactive } from 'vue'
 import { getqqInfo } from '@/service/comments'
 export default commentsCard
 
