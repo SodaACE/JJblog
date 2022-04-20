@@ -29,7 +29,7 @@ const status = computed(() => {
       <div class="name">{{ item.name }}{{ status }}</div>
       <div class="createTime">
         <div class="time">
-          {{ formatUtcString(item.createTime) }}
+          {{ formatUtcString(item.createTime, 'YY-MM-DD hh:mm') }}
         </div>
         <div class="reply" @click="clickReply(item.name)">回复</div>
       </div>
@@ -62,6 +62,11 @@ const status = computed(() => {
     height: 3.25rem;
     border-radius: 50%;
     margin-right: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s;
+    &:hover {
+      transform: rotate(360deg);
+    }
   }
   .detail {
     flex: 1;

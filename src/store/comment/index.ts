@@ -13,8 +13,8 @@ const module: Module<ICommentState, IRootState> = {
   actions: {
     async getDataList({ commit }, payload) {
       const res = await getCommentList(payload)
-      commit('changeCommentList', res.data?.list)
-      commit('changeAllcount', res.data?.allCount)
+      commit('changeCommentList', res.data?.list ?? [])
+      commit('changeAllcount', res.data?.allCount ?? 0)
     }
   },
   mutations: {

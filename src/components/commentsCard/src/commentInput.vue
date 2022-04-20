@@ -4,6 +4,7 @@ import { ref, defineProps, PropType, defineEmits } from 'vue'
 import { useCommentInfo } from '../index'
 import { Comment } from '@/store/comment/types'
 import { createComment } from '@/service/comments'
+import { useStore } from '@/store'
 const emit = defineEmits(['closeReply'])
 const props = defineProps({
   item: {
@@ -17,13 +18,15 @@ const props = defineProps({
 })
 const showEmojis = ref(false)
 const { content, info, findInfoByQQ } = useCommentInfo()
+const store = useStore()
 const submit = async () => {
+  if (!content.value || !info.name) return
   // 如果传入了item，那么就是回复，否则就是评论
   const metadata: Comment = props.item
     ? {
         type: '0',
         replyId: props.item._id,
-        parent: props.item.parent,
+        parent: props.item.parent ?? props.item._id, //如果是顶级评论，会出现没有parent的情况
         content: content.value,
         title: props.articleTitle,
         ...info
@@ -34,8 +37,29 @@ const submit = async () => {
         title: props.articleTitle,
         ...info
       }
+
   const res = await createComment(metadata)
-  emit('closeReply')
+  if (props.item) {
+    emit('closeReply')
+  } else {
+    //清空数据
+    for (const key in info) {
+      info[key] = ''
+    }
+    content.value = ''
+  }
+  const { commentList } = store.state.comment
+  const comment = res.data.data
+  if (comment) {
+    comment?.type === '0' // 回复，unshift到对应的顶级评论的replyList前
+      ? commentList
+          .find((value) => {
+            return value._id === comment.parent
+          })
+          ?.replyList?.push(comment)
+      : commentList.unshift(comment) //评论，直接unshift到顶级评论数组前
+    store.commit('comment/changeCommentList', commentList)
+  }
 }
 </script>
 <template>

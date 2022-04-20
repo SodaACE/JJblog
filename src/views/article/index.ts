@@ -1,10 +1,10 @@
+import { useStore } from '@/store'
 import { useRoute } from 'vue-router'
-import { ref, watchEffect, Ref } from 'vue'
+import { ref, watchEffect, Ref, computed } from 'vue'
 import { addArticleCount, getArticleList } from '@/service/article'
-import { getCommentList } from '@/service/comments'
 import { Article } from '@/store/article/types'
 import { onMounted, onUnmounted, onUpdated } from 'vue'
-import { Comment } from '@/store/comment/types'
+
 
 export function useGetInfoAboutArticle() {
   //获取文章标题菜单
@@ -13,8 +13,8 @@ export function useGetInfoAboutArticle() {
   //文章信息
   const article: Ref<Article> = ref({})
   // 评论信息
-  const commentList: Ref<Comment[] | undefined> = ref()
-
+  const store = useStore()
+  const commentList = computed(() => store.state.comment.commentList)
   watchEffect(async () => {
     //当路由发生变化时，根据id获取文章，修改path的值
     const id = route.params.id as string
@@ -24,11 +24,10 @@ export function useGetInfoAboutArticle() {
     }
     //增加访问量的请求
     addArticleCount(id)
-    getCommentList({ title: article.value.title, type: '1' }).then(
-      (res) => {
-        commentList.value = res.data?.list
-      }
-    )
+    store.dispatch('comment/getDataList', {
+      title: article.value.title,
+      type: '1'
+    })
   })
   return { article, menu, commentList }
 }
