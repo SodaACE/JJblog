@@ -1,29 +1,5 @@
 # JJblog
 
-## Project setup
+详情请访问：https://www.jzsp66.xyz/#/main
 
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+个人简陋的小破站qwq
