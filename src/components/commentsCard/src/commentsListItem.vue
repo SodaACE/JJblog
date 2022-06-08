@@ -13,11 +13,6 @@ const props = defineProps({
 })
 const showReply = ref(false)
 
-//TODO:完善评论逻辑
-const clickReply = (name: string) => {
-  showReply.value = !showReply.value
-}
-
 const status = computed(() => {
   return props.item.status ? props.item.status + '地说道' : ''
 })
@@ -31,7 +26,12 @@ const status = computed(() => {
         <div class="time">
           {{ formatUtcString(item.createTime, 'YY-MM-DD hh:mm') }}
         </div>
-        <div class="reply" @click="clickReply(item.name)">回复</div>
+        <div
+          class="reply"
+          @click="() => (showReply.value = !showReply.value)"
+        >
+          回复
+        </div>
       </div>
       <p class="content" v-html="item.content"></p>
       <transition name="wjj">

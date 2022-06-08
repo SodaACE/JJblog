@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { Ref, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/store'
 import { debounce_request } from '@/utils/debounce'
 //TODO:查找文章接口
 import { getArticleListWithoutShowLoading } from '@/service/article'
+import { Article } from '@/store/article/types'
 const router = useRouter()
 const route = useRoute()
 const store = useStore()
@@ -20,7 +21,7 @@ const list = ref([
 //搜索框绑定的内容
 const input = ref()
 //搜索到的文章列表
-const articleList = ref([])
+const articleList: Ref<Article[]> = ref([])
 //是否显示输入框
 const showInput = ref(false)
 //防抖函数

@@ -8,11 +8,11 @@ module.exports = {
   outputDir: './build',
   publicPath: './',
   configureWebpack: {
-    // externals: {
-    //   'element-plus': 'ElementPlus',
-    //   vue: 'Vue',
-    //   'highlight.js': 'hljs'
-    // },
+    externals: {
+      // 'element-plus': 'ElementPlus',
+      // vue: 'Vue',
+      // 'highlight.js': 'hljs'
+    },
     plugins: [
       AutoImport({
         imports: ['vue'],
